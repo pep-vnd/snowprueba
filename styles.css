@@ -19,6 +19,7 @@ a{color:inherit; text-decoration:none}
 .container{width:min(1200px, 92vw); margin-inline:auto}
 
 /* ================= Navbar ================= */
+
 .topbar{
   position:fixed; top:0; left:0; right:0; z-index:100; width:100%;
   background:transparent;  /* transparente al inicio sobre la foto */
@@ -84,6 +85,8 @@ a{color:inherit; text-decoration:none}
   align-items:center;
   isolation:isolate;       /* que el overlay no afecte al contenido */
   padding-top: var(--nav-h); /* hueco exacto bajo el navbar */
+  /* Llevar el hero hasta arriba para que el navbar transparente no muestre blanco */
+  margin-top: calc(var(--nav-h) * -1);
   overflow:hidden;
 }
 .hero-photo{
@@ -119,6 +122,8 @@ a{color:inherit; text-decoration:none}
 
 /* ================= Footer ================= */
 .foot{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:28px; padding:28px 0; align-items:start}
+/* Elevar ligeramente la columna Servicios (col 2) para alinearla con Legales y Localización en desktop */
+.foot .foot-col:nth-of-type(2){ margin-top:-30px }
 .muted{opacity:.85}
 .site-footer a{color:#fff; opacity:.9}
 .foot-heading{display:block; margin-bottom:8px}
@@ -137,7 +142,7 @@ a{color:inherit; text-decoration:none}
 .foot .foot-col:nth-of-type(2) .muted.sm{ display:none }
 .foot .foot-col:nth-of-type(2)::after{
   content: 'Alquiler\A Clases\A Taller';
-  display:block; white-space:pre-line; line-height:1.6; opacity:.92;
+  display:block; white-space:pre-line; line-height:1.6; opacity:.92; margin-top:24px;
 }
 
 /* ================= Responsive ================= */
@@ -245,6 +250,8 @@ a{color:inherit; text-decoration:none}
 /* Responsive extra */
 @media (max-width: 1100px){
   .foot{grid-template-columns:1fr 1fr; gap:22px}
+  /* En layouts de dos columnas, no forzar desplazamiento vertical */
+  .foot .foot-col:nth-of-type(2){ margin-top:0 }
 }
 @media (max-width: 680px){
   .foot{grid-template-columns:1fr}
@@ -316,4 +323,125 @@ a{color:inherit; text-decoration:none}
 /* Responsive: baja altura en móviles para que no se coma demasiada pantalla */
 @media (max-width: 920px){
   :root{ --footer-minh: 360px; --footer-pad-t: 42px; --footer-pad-b: 24px; }
+}
+
+/* ===== HERO SLIDER (rectangular) ===== */
+.hero{
+  position:relative; padding-top:var(--nav-h);
+  min-height: 70vh; display:block; overflow:hidden;
+}
+.hero-slider{ position:relative; inset:0; height:clamp(420px, 70vh, 820px); }
+.slide{
+  position:absolute; inset:0;
+  background: var(--bg) center/cover no-repeat;
+  opacity:0; transform:scale(1.02); transition: opacity .8s ease, transform 1.2s ease;
+  will-change:opacity, transform;
+}
+.slide.active{ opacity:1; transform:scale(1); }
+
+.hero-overlay{
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.55));
+  mix-blend-mode: multiply;
+}
+
+.hero-caption{
+  position:absolute; inset:0; display:grid; place-content:center; place-items:center;
+  text-align:center; color:#fff; z-index:5; padding:0 18px;
+}
+.hero-caption h1{ font-size:clamp(30px, 6.2vw, 64px); line-height:1.05; margin:0 0 10px; }
+.hero-caption .sub{ font-size:clamp(16px, 2.6vw, 20px); opacity:.95; margin-bottom:16px; }
+
+.slider-dots{
+  position:absolute; left:50%; bottom:22px; transform:translateX(-50%);
+  display:flex; gap:10px; z-index:6;
+}
+.dot{
+  width:10px; height:10px; border-radius:999px; border:2px solid rgba(255,255,255,.7);
+  background:transparent; cursor:pointer; padding:0;
+  transition:background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.dot:hover{ transform:scale(1.1) }
+.dot.active{ background:var(--sand); border-color:var(--sand); }
+
+/* ===== Responsive slider ===== */
+@media (max-width:920px){
+  .hero-slider{ height:clamp(360px, 62vh, 560px); }
+  .hero-caption .hero-ctas{ justify-content:center; }
+}
+
+/* ===== HERO SLIDER (rectangular, imagen hasta arriba) ===== */
+.hero{
+  position:relative;
+  /* Imagen hasta el borde superior pero con hueco para el navbar */
+  padding-top: var(--nav-h);
+  min-height: 70vh; display:block; overflow:hidden;
+}
+.hero-slider{ position:relative; inset:0; height:clamp(420px, 70vh, 820px); }
+.slide{
+  position:absolute; inset:0;
+  background: var(--bg) center/cover no-repeat;
+  opacity:0; transform:scale(1.02); transition: opacity .8s ease, transform 1.2s ease;
+  will-change:opacity, transform;
+}
+.slide.active{ opacity:1; transform:scale(1); }
+
+.hero-overlay{
+  position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.55));
+  /* mix-blend-mode: multiply;  opcional si quieres más integración */
+}
+
+.hero-caption{
+  position:absolute; inset:0; display:grid; place-content:center; place-items:center;
+  text-align:center; color:#fff; z-index:5; padding:0 18px;
+}
+.hero-caption h1{ font-size:clamp(30px, 6.2vw, 64px); line-height:1.05; margin:0 0 10px; }
+.hero-caption .sub{ font-size:clamp(16px, 2.6vw, 20px); opacity:.95; margin-bottom:0; }
+
+.slider-dots{
+  position:absolute; left:50%; bottom:18px; transform:translateX(-50%);
+  display:flex; gap:10px; z-index:6;
+}
+.dot{
+  width:10px; height:10px; border-radius:999px; border:2px solid rgba(255,255,255,.7);
+  background:transparent; cursor:pointer; padding:0;
+  transition:background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.dot:hover{ transform:scale(1.1) }
+.dot.active{ background:var(--sand); border-color:var(--sand); }
+
+/* Flechas */
+.nav-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:6; width:42px; height:42px; border-radius:12px; border:1px solid rgba(255,255,255,.35);
+  background:rgba(0,0,0,.25); color:#fff; font-size:28px; line-height:1;
+  display:grid; place-items:center; cursor:pointer;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.nav-arrow:hover{ background:rgba(0,0,0,.38); transform:translateY(-50%) scale(1.05); }
+.nav-arrow.prev{ left:16px; }
+.nav-arrow.next{ right:16px; }
+
+/* Barra con CTAs separada */
+.hero-cta-bar{ display:none !important; }
+.hero-cta-bar .ctas{ display:flex; gap:12px; justify-content:center; }
+
+/* Navbar: transparente arriba (sin franja blanca); sólido al hacer scroll */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:100; width:100%;
+  background:transparent; color:#fff; border-bottom:1px solid transparent; box-shadow:none;
+  transition: background .28s ease, backdrop-filter .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+.topbar.scrolled{
+  background:rgba(15,23,42,.86); backdrop-filter:saturate(140%) blur(6px);
+  box-shadow:0 10px 28px rgba(15,23,42,.14); border-bottom-color:rgba(255,255,255,.18);
+}
+
+/* Responsive */
+@media (max-width:920px){
+  .hero-slider{ height:clamp(360px, 62vh, 560px); }
+  .nav-arrow{ width:38px; height:38px; font-size:24px; }
+  .hero-cta-bar{ padding:12px 0 18px; }
 }

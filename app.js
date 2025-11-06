@@ -150,3 +150,121 @@ const io = new IntersectionObserver((entries, obs)=>{
   const mo = new MutationObserver(()=>{ bind(); });
   mo.observe(root, { childList:true, subtree:true });
 })();
+
+// ===== HERO SLIDER (autoplay 5s, fade, dots, swipe) =====
+(function heroSlider(){
+  const root = document.querySelector('.hero-slider');
+  if(!root) return;
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const dots   = Array.from(root.querySelectorAll('.dot'));
+  const title  = document.getElementById('hero-title');
+  const sub    = document.getElementById('hero-sub');
+
+  let i = slides.findIndex(s => s.classList.contains('active'));
+  if(i < 0) i = 0;
+  let timer = null, hovering = false;
+
+  function applyText(idx){
+    const s = slides[idx];
+    if(!s) return;
+    title.textContent = s.dataset.title || '';
+    sub.textContent   = s.dataset.sub   || '';
+  }
+
+  function go(n){
+    slides[i].classList.remove('active');
+    dots[i]?.classList.remove('active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('active');
+    dots[i]?.classList.add('active');
+    applyText(i);
+  }
+
+  function next(){ go(i+1); }
+  function play(){ stop(); timer = setInterval(next, 5000); }
+  function stop(){ if(timer) clearInterval(timer); timer = null; }
+
+  // dots
+  dots.forEach((d, idx)=>{
+    d.addEventListener('click', ()=>{ go(idx); play(); });
+  });
+
+  // pausa al pasar por encima / enfocar con teclado
+  root.addEventListener('mouseenter', ()=>{ hovering = true; stop(); });
+  root.addEventListener('mouseleave', ()=>{ hovering = false; play(); });
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', ()=>{ if(!hovering) play(); });
+
+  // swipe táctil
+  let x0 = null;
+  root.addEventListener('touchstart', e=>{ x0 = e.touches[0].clientX; stop(); }, {passive:true});
+  root.addEventListener('touchend',   e=>{
+    if(x0==null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if(Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+    x0 = null; play();
+  }, {passive:true});
+
+  applyText(i);
+  play();
+})();
+
+// ===== HERO SLIDER: flechas + teclado, autoplay sigue en 5s =====
+(function enhanceHeroSlider(){
+  const root   = document.querySelector('.hero-slider');
+  if(!root) return;
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const dots   = Array.from(root.querySelectorAll('.dot'));
+  const title  = document.getElementById('hero-title');
+  const sub    = document.getElementById('hero-sub');
+  const prevB  = document.getElementById('hero-prev');
+  const nextB  = document.getElementById('hero-next');
+
+  let i = slides.findIndex(s => s.classList.contains('active'));
+  if(i < 0) i = 0;
+  let timer = null, hovering = false;
+
+  const applyText = (idx)=>{
+    const s = slides[idx]; if(!s) return;
+    title.textContent = s.dataset.title || '';
+    sub.textContent   = s.dataset.sub   || '';
+  };
+  const go = (n)=>{
+    slides[i].classList.remove('active'); dots[i]?.classList.remove('active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('active'); dots[i]?.classList.add('active');
+    applyText(i);
+  };
+  const next = ()=> go(i+1);
+  const prev = ()=> go(i-1);
+  const play = ()=>{ stop(); timer = setInterval(next, 5000); };
+  const stop = ()=>{ if(timer) clearInterval(timer); timer = null; };
+
+  dots.forEach((d, idx)=> d.addEventListener('click', ()=>{ go(idx); play(); }));
+  root.addEventListener('mouseenter', ()=>{ hovering = true; stop(); });
+  root.addEventListener('mouseleave', ()=>{ hovering = false; play(); });
+
+  // flechas
+  nextB?.addEventListener('click', ()=>{ next(); play(); });
+  prevB?.addEventListener('click', ()=>{ prev(); play(); });
+
+  // teclado (cuando el slider tiene foco o el usuario pulsa sobre la página)
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight'){ next(); play(); }
+    if(e.key === 'ArrowLeft'){  prev(); play(); }
+  });
+
+  // swipe táctil
+  let x0 = null;
+  root.addEventListener('touchstart', e=>{ x0 = e.touches[0].clientX; stop(); }, {passive:true});
+  root.addEventListener('touchend',   e=>{
+    if(x0==null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if(Math.abs(dx) > 40) (dx < 0 ? next() : prev());
+    x0 = null; play();
+  }, {passive:true});
+
+  applyText(i);
+  play();
+})();
+
