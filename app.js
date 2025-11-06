@@ -19,9 +19,12 @@ function wireMenu(){
   const list = document.getElementById('navlist');
   const bar  = document.querySelector('.topbar');
 
-  // Navbar “sticky” + padding-top para que no tape el contenido
+  // Navbar “sticky”: usamos variable CSS --nav-h (adiós franja blanca)
   if(bar){
-    const setOffset = ()=>{ document.body.style.paddingTop = bar.offsetHeight + 'px'; };
+    const setOffset = ()=>{
+      const h = bar.offsetHeight || 72;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    };
     const onScroll  = ()=>{
       const sc = window.scrollY > 10;
       bar.classList.toggle('scrolled', sc); // tu CSS ya estiliza .scrolled
@@ -104,16 +107,23 @@ document.addEventListener('click', (e)=>{
   obs.observe(root, { childList:true, subtree:true });
 })();
 
-// Mantén sincronizado el padding-top del body con la altura actual de la navbar
-window.addEventListener('scroll', () => {
+// ===== Barra de progreso de scroll en la navbar =====
+(function wireScrollProgress(){
   const bar = document.querySelector('.topbar');
-  if (bar) document.body.style.paddingTop = bar.offsetHeight + 'px';
-}, { passive: true });
+  const line = document.querySelector('.scroll-progress');
+  if(!bar || !line) return;
 
-window.addEventListener('load', () => {
-  const bar = document.querySelector('.topbar');
-  if (bar) document.body.style.paddingTop = bar.offsetHeight + 'px';
-});
+  const set = ()=>{
+    const h = document.documentElement;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    const pct = Math.max(0, Math.min(1, scrollHeight ? (scrollTop / scrollHeight) : 0));
+    line.style.width = (pct * 100).toFixed(2) + '%';
+  };
+  set();
+  window.addEventListener('scroll', set, { passive:true });
+  window.addEventListener('resize', set);
+})();
 
 // ---- Reveal-once para el footer y cualquier bloque con .reveal-once ----
 const io = new IntersectionObserver((entries, obs)=>{

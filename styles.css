@@ -6,6 +6,11 @@
   --ink:#0F172A;
   --radius:20px;
   --shadow:0 10px 30px rgba(15,23,42,.10);
+  --nav-h:72px;     /* altura del navbar (JS la actualiza) */
+  /* footer vars */
+  --footer-minh: 440px;  /* altura base del footer */
+  --footer-pad-t: 58px;  /* padding superior */
+  --footer-pad-b: 34px;  /* padding inferior */
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -13,30 +18,81 @@ body{margin:0; font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Robo
 a{color:inherit; text-decoration:none}
 .container{width:min(1200px, 92vw); margin-inline:auto}
 
-/* Navbar (partial) */
-.topbar{position:fixed; top:0; left:0; right:0; z-index:50; width:100%; background:linear-gradient(180deg, var(--deepblue), #5c97b5); color:#fff; box-shadow:0 6px 16px rgba(0,0,0,.06); border-bottom:1px solid transparent; transition: background .28s ease, backdrop-filter .28s ease, box-shadow .28s ease, border-color .28s ease}
-.topbar.scrolled{background:rgba(60,119,149,.68); backdrop-filter:saturate(140%) blur(10px); box-shadow:0 10px 28px rgba(15,23,42,.14); border-bottom-color:rgba(255,255,255,.18)}
+/* ================= Navbar ================= */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:100; width:100%;
+  background:transparent;  /* transparente al inicio sobre la foto */
+  color:#fff;
+  border-bottom:1px solid transparent;
+  box-shadow:none;
+  transition: background .28s ease, backdrop-filter .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+.topbar.scrolled{
+  /* sólido oscuro al bajar; sin banda blanca detrás */
+  background:rgba(60, 119, 149,.86);
+  backdrop-filter:saturate(140%) blur(6px);
+  box-shadow:0 10px 28px rgba(60, 119, 149,.14);
+  border-bottom-color:rgba(255,255,255,.18);
+}
 .nav{display:flex; align-items:center; justify-content:space-between; gap:26px; padding:16px 0; position:relative; transition: padding .28s ease}
-.topbar.scrolled .nav{padding:8px 0}
+.topbar.scrolled .nav{padding:10px 0}
+
 .brand{display:flex; align-items:center; gap:10px; font-weight:900; color:#fff}
-.brand-logo{width:80x; height:80px; aspect-ratio:1/1; border-radius:50%; background:transparent; object-fit:contain; border:none; display:block; transition: width .28s ease, height .28s ease, border-color .28s ease, transform .28s ease}
-.topbar.scrolled .brand-logo{width:50px; height:50px; border-color:rgba(255,255,255,.6)}
+.brand-logo{width:80px; height:80px; aspect-ratio:1/1; border-radius:50%; background:transparent; object-fit:contain; border:none; display:block; transition: width .28s ease, height .28s ease, transform .28s ease}
+.topbar.scrolled .brand-logo{width:52px; height:52px}
+
 .navlist{display:flex; gap:18px; list-style:none; margin:0; padding:0; align-items:center}
-.navlist a{position:relative; padding:10px 12px; border-radius:12px; color:#fff; opacity:.95; transition: color .25s ease, background .25s ease}
-.navlist a::after{content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px; background:rgba(255,255,255,.7); transform:scaleX(0); transform-origin:left; transition:transform .25s ease, opacity .25s ease; opacity:0}
+.navlist a{
+  position:relative; padding:10px 12px; border-radius:12px;
+  color:#fff; opacity:.95; transition: color .25s ease, background .25s ease
+}
+.navlist a::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px;
+  background:var(--sand); transform:scaleX(0); transform-origin:left;
+  transition:transform .25s ease, opacity .25s ease; opacity:0
+}
 .navlist a:hover{background:rgba(255,255,255,.10)}
-.navlist a:hover::after{transform:scaleX(1); opacity:1}
+.navlist a:hover::after, .navlist a.active::after{transform:scaleX(1); opacity:1}
+
 .hamburger{display:none; background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff; border-radius:10px; width:42px; height:42px; align-items:center; justify-content:center}
 .hamburger span{display:block; width:20px; height:2px; background:#fff; margin:3px auto}
+
 .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:14px; border:1px solid transparent; cursor:pointer; font-weight:800}
-.btn.primary{background:var(--sand); color:#333; box-shadow:var(--shadow)}
+.btn.primary{background:var(--sand); color:#242424; box-shadow:var(--shadow)}
 .btn.primary:hover{filter:brightness(.98)}
 .btn.ghost{background:transparent; border-color:rgba(255,255,255,.4); color:#fff}
 
-/* Hero */
-.hero{position:relative; overflow:hidden}
-.hero-bg{position:absolute; inset:0; z-index:-1}
-.hero-bg svg{width:100%; height:100%; display:block}
+/* Progreso de scroll (línea superior que avanza al hacer scroll) */
+.scroll-progress{
+  position:absolute; left:0; top:0; height:3px; width:0%;
+  background:linear-gradient(90deg, #ffd27e, #fff);
+  box-shadow:0 1px 6px rgba(0,0,0,.2);
+  border-radius:0 8px 8px 0;
+  transition: width .08s linear;
+  pointer-events:none;
+  opacity:.95;
+}
+
+
+
+
+/* ================= Hero con foto ================= */
+.hero{
+  position:relative;
+  min-height:520px;
+  display:grid;
+  align-items:center;
+  isolation:isolate;       /* que el overlay no afecte al contenido */
+  padding-top: var(--nav-h); /* hueco exacto bajo el navbar */
+  overflow:hidden;
+}
+.hero-photo{
+  position:absolute; inset:0; z-index:-1;
+  background:
+    linear-gradient(0deg, rgba(0,37,58,.55), rgba(0,37,58,.55)),
+    url('assets/fondo.jpg') center/cover no-repeat;
+}
+
 .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:34px; align-items:center; padding:60px 0}
 .hero-copy h1{font-size: clamp(34px, 6vw, 56px); line-height:1.05; margin:0 0 12px; color:#fff; text-shadow:0 1px 0 rgba(0,0,0,.06)}
 .sub{font-size:clamp(16px, 2.2vw, 20px); opacity:.95; color:#f8fbff; margin-bottom:18px}
@@ -45,7 +101,7 @@ a{color:inherit; text-decoration:none}
 .logo-round{width:180px; height:180px; border-radius:50%; background:transparent; object-fit:contain; object-position:center; border:none; padding:8px; display:block}
 .divider-wave svg{display:block; width:100%; height:auto}
 
-/* Sections */
+/* ================= Sections ================= */
 .section{padding:60px 0}
 .section.cloud{background:linear-gradient(180deg, #fff, #f8fafc)}
 .section-title{font-size: clamp(22px, 3.4vw, 32px); margin:0 0 10px}
@@ -54,23 +110,20 @@ a{color:inherit; text-decoration:none}
 .card.highlight{border:2px solid var(--sand)}
 .price{font-weight:900; font-size:20px}
 
-/* Booking */
+/* ================= Booking ================= */
 .booking{background:#fff; border:1px solid rgba(15,23,42,.1); padding:18px; border-radius:var(--radius); box-shadow:var(--shadow); display:grid; grid-template-columns:repeat(6,1fr); gap:12px; align-items:end}
 .booking label{font-size:12px; font-weight:800; color:var(--gray)}
 .booking input, .booking select{width:100%; padding:12px 12px; border-radius:12px; border:1px solid rgba(15,23,42,.15); background:white; font-size:14px}
 .booking .wide{grid-column:span 2}
 .booking .cta{grid-column:span 2}
 
-/* Footer (partial) */
-.site-footer{background:linear-gradient(180deg, var(--deepblue), #2f6884); color:#fff; padding:0 0 28px; border-top:none; position:relative; overflow:hidden}
-.footer-wave svg{display:block; width:100%; height:auto}
-.foot{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:24px; padding:28px 0; align-items:start}
+/* ================= Footer ================= */
+.foot{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:28px; padding:28px 0; align-items:start}
 .muted{opacity:.85}
 .site-footer a{color:#fff; opacity:.9}
-.site-footer a:hover{opacity:1}
 .foot-heading{display:block; margin-bottom:8px}
 .foot-links{display:flex; flex-direction:column; gap:6px}
-.foot-links a{margin-right:0}s
+.foot-links a{margin-right:0} /* (corregido un 's' suelto) */
 .brand-foot{color:#fff}
 .site-footer .foot .foot-col{display:flex; flex-direction:column; align-items:flex-start}
 .site-footer .brand-foot .brand-logo{width:40px; height:40px}
@@ -87,14 +140,14 @@ a{color:inherit; text-decoration:none}
   display:block; white-space:pre-line; line-height:1.6; opacity:.92;
 }
 
-/* Responsive */
+/* ================= Responsive ================= */
 @media (max-width: 920px){
   .hero-grid{grid-template-columns:1fr}
   .grid-3, .foot{grid-template-columns:1fr}
   .booking{grid-template-columns:1fr 1fr}
   .booking .wide, .booking .cta{grid-column:span 2}
   .hamburger{display:inline-flex}
-  .navlist{position:absolute; top:calc(100% + 8px); right:12px; background:rgba(60,119,149,.92); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); border-radius:14px; box-shadow:var(--shadow); padding:10px; flex-direction:column; gap:8px; margin:0; display:none}
+  .navlist{position:absolute; top:calc(100% + 8px); right:12px; background:rgba(15,23,42,.92); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); border-radius:14px; box-shadow:var(--shadow); padding:10px; flex-direction:column; gap:8px; margin:0; display:none}
   .navlist.open{display:flex}
 }
 
@@ -133,48 +186,6 @@ a{color:inherit; text-decoration:none}
   #preloader img{ animation: none; }
 }
 
-/* ===== Footer con fondo, onda y chips ===== */
-.site-footer{
-  position:relative; color:#fff; padding:0 0 28px; overflow:hidden;
-  background: linear-gradient(180deg, rgba(60,119,149,1) 0%, rgba(47,104,132,1) 100%);
-  border-top:none;
-}
-.footer-wave svg{display:block; width:100%; height:auto}
-
-/* Fondo con imagen translúcida */
-.footer-bg{
-  position:absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
-    url('assets/footer.jpg') center/cover no-repeat;
-  opacity:.9; z-index:0;
-}
-.site-footer .foot,
-.site-footer .foot-note{ position:relative; z-index:1; }
-
-.foot{display:grid; grid-template-columns:2.2fr 1fr 1fr 1.2fr; gap:28px; padding:28px 0; align-items:start}
-.brand-foot{color:#fff}
-.site-footer a{color:#fff; opacity:.92}
-.site-footer a:hover{opacity:1}
-.foot-heading{display:block; font-weight:900; letter-spacing:.5px; margin:0 0 10px}
-.foot-links{display:flex; flex-direction:column; gap:8px}
-.muted{opacity:.9}
-.muted.sm{font-size:.95rem; opacity:.85}
-.social{display:flex; gap:10px; margin-top:10px}
-.social a{
-  width:38px; height:38px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
-  background:rgba(255,255,255,.14); text-decoration:none; font-weight:900;
-  transition:transform .25s ease, background .25s ease;
-}
-.social a:hover{transform:translateY(-2px); background:rgba(255,255,255,.22)}
-.cards-row{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 8px}
-.chip{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:6px 10px; border-radius:999px; background:rgba(252,210,145,.9); color:#333; font-weight:800;
-  box-shadow:0 4px 12px rgba(0,0,0,.12); border:1px solid rgba(255,255,255,.3);
-}
-.foot-note{border-top:1px solid rgba(255,255,255,.18); padding:12px 0; color:#eaf4ff; opacity:.92}
-
 /* ===== Animación: reveal al primer scroll ===== */
 .reveal-once{opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease}
 .reveal-once[data-reveal="left"]{transform:translateX(-26px)}
@@ -194,10 +205,78 @@ a{color:inherit; text-decoration:none}
 .site-footer .foot .foot-col.reveal-in > *:nth-child(4){ transition-delay:.22s }
 .site-footer .foot .foot-col.reveal-in > *:nth-child(5){ transition-delay:.28s }
 
-/* Responsive */
+/* Responsive extra */
 @media (max-width: 1100px){
   .foot{grid-template-columns:1fr 1fr; gap:22px}
 }
 @media (max-width: 680px){
   .foot{grid-template-columns:1fr}
+}
+
+/* === Footer: foto translúcida rectangular (sin ola) === */
+.site-footer{
+  position:relative;
+  background:none !important;   /* quitamos degradado/azul */
+  color:#fff;
+  overflow:hidden;
+}
+.footer-wave{ display:none !important; } /* oculta la ola si existía */
+
+.footer-bg-old{
+  position:absolute; inset:0; z-index:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+    url('assets/footer.jpg') center/cover no-repeat;
+  opacity:.95;                 /* ajusta si la quieres más/menos visible */
+}
+
+/* === Footer más alto con foto translúcida (rectángulo) === */
+:root{
+  --footer-minh: 440px;       /* súbelo a 520px si lo quieres más alto */
+  --footer-pad-t: 58px;       /* aire superior para que respire */
+  --footer-pad-b: 34px;       /* aire inferior */
+}
+
+.site-footer{
+  min-height: var(--footer-minh);
+  padding-top: var(--footer-pad-t);
+  padding-bottom: var(--footer-pad-b);
+  background: none !important;        /* sin ola ni degradado */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Foto de fondo, centrada y con overlay suave */
+.footer-bg{
+  position:absolute; inset:0; z-index:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.55)),   /* overlay */
+    url('assets/footer.jpg') center 42% / cover no-repeat;       /* ajusta 42% si quieres subir/bajar el horizonte */
+  opacity:.96;
+}
+
+/* Vignette muy sutil para legibilidad */
+.footer-bg::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,.25) 70%),
+    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.18) 100%);
+  pointer-events:none;
+}
+
+/* Contenido por encima de la foto */
+.site-footer .foot,
+.site-footer .foot-note{ position:relative; z-index:1; }
+
+/* Toque “top”: subrayados y acentos arena (#fcd291) sutiles */
+.site-footer a:hover{ opacity:1; text-shadow:0 0 1px rgba(252,210,145,.35); }
+.foot-heading{ position:relative; }
+.foot-heading::after{
+  content:""; position:absolute; left:0; bottom:-8px; width:56px; height:3px;
+  background: var(--sand); border-radius:999px; opacity:.9;
+}
+
+/* Responsive: baja altura en móviles para que no se coma demasiada pantalla */
+@media (max-width: 920px){
+  :root{ --footer-minh: 360px; --footer-pad-t: 42px; --footer-pad-b: 24px; }
 }
