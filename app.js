@@ -25,9 +25,10 @@ function wireMenu(){
       document.documentElement.style.setProperty('--nav-h', h + 'px');
     };
     const onScroll = ()=>{
-      // sólido en scroll en móvil y desktop
-      bar.classList.toggle('scrolled', window.scrollY > 10);
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
+      bar.classList.toggle('scrolled', scrollTop > 10);
     };
+
     setOffset(); onScroll();
     window.addEventListener('resize', setOffset);
     window.addEventListener('scroll', onScroll, { passive:true });
