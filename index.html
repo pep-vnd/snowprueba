@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Snowlines · Inicio</title>
   <meta name="description" content="Navbar, Inicio y Footer en archivos separados. Paleta personalizada." />
+  
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="partials/partials.css" />
 </head>
 <body>
-  <!-- Preloader -->
   <div id="preloader" aria-live="polite" aria-busy="true">
     <img src="assets/logo.webp" alt="Cargando Snowlines" onerror="this.src='assets/logo.png'">
   </div>
   <div id="navbar"></div>
 
- <!-- HERO / INICIO -->
-<main id="inicio" class="hero">
+ <main id="inicio" class="hero">
   <div class="hero-slider" aria-label="Galería destacada">
-    <!-- Slides -->
     <div class="slide active" id="slide-1"
          data-title="Esquí & Snow en Sierra Nevada"
          data-sub="Clases y alquiler a 200 m del telecabina"
@@ -33,20 +32,16 @@
          data-sub="Reserva online en 2 minutos"
          style="--bg:url('assets/hero3.jpg')"></div>
 
-    <!-- overlay -->
     <div class="hero-overlay" aria-hidden="true"></div>
 
-    <!-- Texto (se actualiza con cada slide) -->
     <div class="container hero-caption">
       <h1 id="hero-title">Esquí & Snow en Sierra Nevada</h1>
       <p class="sub" id="hero-sub">Clases y alquiler a 200 m del telecabina</p>
     </div>
 
-    <!-- Flechas -->
     <button class="nav-arrow prev" aria-label="Anterior" id="hero-prev">‹</button>
     <button class="nav-arrow next" aria-label="Siguiente" id="hero-next">›</button>
 
-    <!-- Dots -->
     <div class="slider-dots" role="tablist" aria-label="Cambiar imagen">
       <button class="dot active" role="tab" aria-selected="true" aria-controls="slide-1"></button>
       <button class="dot" role="tab" aria-selected="false" aria-controls="slide-2"></button>
@@ -55,7 +50,6 @@
   </div>
 </main>
 
-<!-- Barra con CTAs (separada del hero) -->
 <div class="hero-cta-bar">
   <div class="container ctas">
     <button class="btn primary" id="cta-hero">Reservar ahora</button>
@@ -63,7 +57,6 @@
   </div>
 </div>
 
-  <!-- CONTENIDO DEMO -->
   <section id="servicios" class="section">
     <div class="container">
       <h2 class="section-title">Clases y alquiler</h2>
@@ -102,6 +95,7 @@
 
   <div id="footer"></div>
 
+  <script src="partials/partials.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

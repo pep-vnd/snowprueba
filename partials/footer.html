@@ -1,26 +1,108 @@
-<!-- partials/footer.html -->
 <footer id="contacto" class="site-footer">
-  <!-- Onda superior -->
-  <div class="footer-wave" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-      <path d="M0,64 C240,8 480,8 720,48 C960,88 1200,88 1440,48 L1440,0 L0,0 Z" fill="#ffffff"></path>
-    </svg>
+  
+  <div class="foot-desktop">
+    <div class="footer-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <path d="M0,64 C240,8 480,8 720,48 C960,88 1200,88 1440,48 L1440,0 L0,0 Z" fill="#ffffff"></path>
+      </svg>
+    </div>
+  
+    <div class="footer-bg" aria-hidden="true"></div>
+  
+    <div class="container foot">
+      <div class="foot-col reveal-once" data-reveal="left">
+        <div class="brand brand-foot">
+          <img src="assets/logo.webp" alt="Snowlines logo" class="brand-logo" onerror="this.src='assets/logo.png'"/>
+          <span class="brand-text">Snowlines</span>
+        </div>
+        <p class="muted">
+          Somos tu escuela y alquiler en Sierra Nevada. Material cuidado, ajustes a medida y
+          trato directo para que te centres en lo importante: disfrutar la nieve.
+        </p>
+        <div class="social">
+          <a href="#" aria-label="Instagram" title="Instagram"></a>
+          <a href="#" aria-label="Facebook" title="Facebook"></a>
+          <a href="#" aria-label="X" title="X"></a>
+        </div>
+      </div>
+  
+      <div class="foot-col reveal-once" data-reveal="up">
+        <strong class="foot-heading">SERVICIOS</strong>
+        <p class="foot-links">
+          <a href="#servicios">Alquiler de material</a>
+          <a href="#servicios">Clases de Esquí</a>
+          <a href="#servicios">Clases de Snow</a>
+          <a href="#servicios">Taller</a>
+        </p>
+      </div>
+  
+      <div class="foot-col reveal-once" data-reveal="right">
+        <strong class="foot-heading">LEGALES</strong>
+        <p class="foot-links">
+          <a href="#">Aviso legal</a>
+          <a href="#">Política de privacidad</a>
+          <a href="#">Política de cookies</a>
+          <a href="#">Reclamaciones y devoluciones</a>
+        </p>
+      </div>
+  
+      <div class="foot-col reveal-once" data-reveal="right">
+        <strong class="foot-heading">LOCALIZACIÓN</strong>
+        <p class="muted">
+          Av. Maribel, Edificio Salvia · Sierra Nevada (Granada)<br>
+          ✉︎ <a href="mailto:hola@snowlines.es">hola@snowlines.es</a><br>
+          ☎︎ <a href="tel:+34622234532">622 23 45 32</a>
+        </p>
+        <p class="muted sm">Horario: 08:00–20:00 · A 200 m del telecabina.</p>
+      </div>
+    </div>
+  
+    <div class="foot-note">
+      <div class="container">
+        <small>© <span id="year"></span> Snowlines · Todos los derechos reservados</small>
+      </div>
+    </div>
   </div>
 
-  <!-- Fondo con imagen -->
-  <div class="footer-bg" aria-hidden="true"></div>
-
-  <div class="container foot">
-    <!-- Col 1: Sobre -->
-    <div class="foot-col reveal-once" data-reveal="left">
-      <div class="brand brand-foot">
-        <img src="assets/logo.webp" alt="Snowlines logo" class="brand-logo" onerror="this.src='assets/logo.png'"/>
-        <span class="brand-text">Snowlines</span>
-      </div>
-      <p class="muted">
-        Somos tu escuela y alquiler en Sierra Nevada. Material cuidado, ajustes a medida y
-        trato directo para que te centres en lo importante: disfrutar la nieve.
-      </p>
+  <div class="foot-mobile">
+    
+    <div class="foot-col-mobile">
+      <details>
+        <summary>SERVICIOS</summary>
+        <div class="foot-links-mobile">
+          <a href="#servicios">Alquiler de material</a>
+          <a href="#servicios">Clases de Esquí</a>
+          <a href="#servicios">Clases de Snow</a>
+          <a href="#servicios">Taller</a>
+        </div>
+      </details>
+    </div>
+    <div class="foot-col-mobile">
+      <details>
+        <summary>LEGALES</summary>
+        <div class="foot-links-mobile">
+          <a href="#">Aviso legal</a>
+          <a href="#">Política de privacidad</a>
+          <a href="#">Política de cookies</a>
+          <a href="#">Reclamaciones y devoluciones</a>
+        </div>
+      </details>
+    </div>
+    <div class="foot-col-mobile">
+      <details>
+        <summary>CONTACTO</summary>
+        <div class="foot-links-mobile">
+          <p class="muted">
+            Av. Maribel, Edificio Salvia<br>Sierra Nevada (Granada)
+          </p>
+          <a href="mailto:hola@snowlines.es">hola@snowlines.es</a>
+          <a href="tel:+34622234532">622 23 45 32</a>
+        </div>
+      </details>
+    </div>
+    
+    <div class="foot-col-mobile social-mobile">
+      <strong class="foot-heading-mobile">SOCIAL</strong>
       <div class="social">
         <a href="#" aria-label="Instagram" title="Instagram"></a>
         <a href="#" aria-label="Facebook" title="Facebook"></a>
@@ -28,45 +110,17 @@
       </div>
     </div>
 
-    <!-- Col 2: Aceptamos -->
-    <div class="foot-col reveal-once" data-reveal="up">
-      <strong class="foot-heading">SERVICIOS</strong>
-      <div class="cards-row">
-        <span class="chip">VISA</span>
-        <span class="chip">Mastercard</span>
-        <span class="chip">Bizum</span>
-      </div>
-      <p class="muted sm">
-        Pago seguro y confirmación inmediata de tu reserva.
-      </p>
+    <div class="foot-col-mobile lang-mobile">
+      <strong class="foot-heading-mobile">PAÍS E IDIOMA</strong>
+      <span>ES | EUR€ | Español</span>
     </div>
 
-    <!-- Col 3: Legales -->
-    <div class="foot-col reveal-once" data-reveal="right">
-      <strong class="foot-heading">LEGALES</strong>
-      <p class="foot-links">
-        <a href="#">Aviso legal</a>
-        <a href="#">Política de privacidad</a>
-        <a href="#">Política de cookies</a>
-        <a href="#">Reclamaciones y devoluciones</a>
-      </p>
+    <div class="foot-brand-mobile">
+      <span>Snowlines</span>
     </div>
 
-    <!-- Col 4: Localización -->
-    <div class="foot-col reveal-once" data-reveal="right">
-      <strong class="foot-heading">LOCALIZACIÓN</strong>
-      <p class="muted">
-        Av. Maribel, Edificio Salvia · Sierra Nevada (Granada)<br>
-        ✉︎ <a href="mailto:hola@snowlines.es">hola@snowlines.es</a><br>
-        ☎︎ <a href="tel:+34622234532">622 23 45 32</a>
-      </p>
-      <p class="muted sm">Horario: 08:00–20:00 · A 200 m del telecabina.</p>
-    </div>
-  </div>
-
-  <div class="foot-note">
-    <div class="container">
-      <small>© <span id="year"></span> Snowlines · Todos los derechos reservados</small>
+    <div class="foot-note-mobile">
+      <small>© <span id="year"></span> Snowlines</small>
     </div>
   </div>
 </footer>
