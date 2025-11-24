@@ -3,93 +3,169 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Snowlines · Inicio</title>
-  <meta name="description" content="Navbar, Inicio y Footer en archivos separados. Paleta personalizada." />
+  <title>Clases de Esquí y Snowboard en Sierra Nevada | Snowlines</title>
+  <meta name="description" content="Reserva tus clases de esquí y snowboard en Sierra Nevada con Snowlines. Instructores titulados para todos los niveles, desde debutantes hasta expertos. ¡Asegura tu plaza online!" />
   
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="partials/partials.css" />
+  <link rel="stylesheet" href="snow.css" />
 </head>
 <body>
   <div id="preloader" aria-live="polite" aria-busy="true">
-    <img src="assets/logo.webp" alt="Cargando Snowlines" onerror="this.src='assets/logo.png'">
+    <img src="assets/logo.webp" alt="Cargando Snowlines" onerror="this.src='assetsG/logo.png'">
   </div>
+
   <div id="navbar"></div>
 
- <main id="inicio" class="hero">
-  <div class="hero-slider" aria-label="Galería destacada">
-    <div class="slide active" id="slide-1"
-         data-title="Esquí & Snow en Sierra Nevada"
-         data-sub="Clases y alquiler a 200 m del telecabina"
-         style="--bg:url('assets/hero1.jpg')"></div>
+  <main id="inicio" class="hero">
+    <canvas id="snow-canvas"></canvas>
 
-    <div class="slide" id="slide-2"
-         data-title="Aprende con instructores titulados"
-         data-sub="Todos los niveles · Grupos reducidos"
-         style="--bg:url('assets/hero2.jpg')"></div>
+    <div class="hero-slider" aria-label="Galería destacada">
+      <div class="slide active" id="slide-1"
+          data-title="Clases de Esquí y Snow en Sierra Nevada"
+          data-sub="Profesionales con titulación oficial para garantizar tu seguridad y aprendizaje en Sierra Nevada."
+          style="--bg:url('assets/hero1.webp')"></div>
 
-    <div class="slide" id="slide-3"
-         data-title="Equipo de temporada 24/25"
-         data-sub="Reserva online en 2 minutos"
-         style="--bg:url('assets/hero3.jpg')"></div>
+      <div class="slide" id="slide-2"
+          data-title="Los Mejores Profesores de Esquí de Sierra Nevada"
+          data-sub="Desde tu primer día en la nieve hasta perfeccionamiento técnico. Encuentra tu curso de esquí ideal."
+          style="--bg:url('assets/hero2.webp')"></div>
 
-    <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="slide" id="slide-3"
+          data-title="Reserva tu Clase de Esquí Online"
+          data-sub="Reserva online en 2 minutos"
+          style="--bg:url('assets/hero3.webp')"></div>
 
-    <div class="container hero-caption">
-      <h1 id="hero-title">Esquí & Snow en Sierra Nevada</h1>
-      <p class="sub" id="hero-sub">Clases y alquiler a 200 m del telecabina</p>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="container hero-caption">
+        <h1 id="hero-title">Esquí & Snow en Sierra Nevada</h1>
+        <p class="sub" id="hero-sub">Clases y alquiler a 200 m del telecabina</p>
+        
+        <div class="hero-ctas">
+          <button class="btn primary btn-reserva">Reservar Ahora</button>
+          <a href="#bienvenida" class="btn ghost">Saber Más</a>
+        </div>
+
+      </div>
+
+      <button class="nav-arrow prev" aria-label="Anterior" id="hero-prev">‹</button>
+      <button class="nav-arrow next" aria-label="Siguiente" id="hero-next">›</button>
+
+      <div class="slider-dots" role="tablist" aria-label="Cambiar imagen">
+        <button class="dot active" role="tab" aria-selected="true" aria-controls="slide-1"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-controls="slide-2"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-controls="slide-3"></button>
+      </div>
     </div>
-
-    <button class="nav-arrow prev" aria-label="Anterior" id="hero-prev">‹</button>
-    <button class="nav-arrow next" aria-label="Siguiente" id="hero-next">›</button>
-
-    <div class="slider-dots" role="tablist" aria-label="Cambiar imagen">
-      <button class="dot active" role="tab" aria-selected="true" aria-controls="slide-1"></button>
-      <button class="dot" role="tab" aria-selected="false" aria-controls="slide-2"></button>
-      <button class="dot" role="tab" aria-selected="false" aria-controls="slide-3"></button>
-    </div>
-  </div>
-</main>
-
-<div class="hero-cta-bar">
-  <div class="container ctas">
-    <button class="btn primary" id="cta-hero">Reservar ahora</button>
-    <a class="btn ghost" href="#precios">Ver precios</a>
-  </div>
-</div>
-
-  <section id="servicios" class="section">
+  </main>
+  
+  <section id="beneficios" class="section" style="background: var(--ink); color: #fff; padding: 50px 0; text-align: center;">
     <div class="container">
-      <h2 class="section-title">Clases y alquiler</h2>
       <div class="grid-3">
-        <article class="card"><h3>Alquiler</h3><p>Tablas 2025 ajustadas a tu nivel.</p></article>
-        <article class="card"><h3>Clases</h3><p>Privadas y en grupo con instructores.</p></article>
-        <article class="card"><h3>Taller</h3><p>Cera y cantos para cada condición.</p></article>
+        <article class="beneficio-item">
+          <svg class="beneficio-icon" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"></circle></svg>
+          <h3 style="color: var(--sand); margin-top: 0; font-size: 1.3rem;">Instructores Titulados</h3>
+          <p style="opacity: 0.9; margin-bottom: 0;">Profesionales con titulación oficial para garantizar tu seguridad y aprendizaje.</p>
+        </article>
+        <article class="beneficio-item">
+          <svg class="beneficio-icon" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <h3 style="color: var(--sand); margin-top: 0; font-size: 1.3rem;">Todos los Niveles</h3>
+          <p style="opacity: 0.9; margin-bottom: 0;">Desde tu primer día en la nieve hasta perfeccionamiento técnico avanzado.</p>
+        </article>
+        <article class="beneficio-item">
+          <svg class="beneficio-icon" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <h3 style="color: var(--sand); margin-top: 0; font-size: 1.3rem;">Reserva Fácil Online</h3>
+          <p style="opacity: 0.9; margin-bottom: 0;">Asegura tu plaza en 2 minutos. Consulta disponibilidad en tiempo real.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="precios" class="section cloud">
-    <div class="container">
-      <h2 class="section-title">Precios</h2>
-      <div class="grid-3">
-        <article class="card"><h3>Iniciación</h3><p class="price">15€/día</p><button class="btn primary btn-reserva">Elegir</button></article>
-        <article class="card highlight"><h3>Intermedio</h3><p class="price">22€/día</p><button class="btn primary btn-reserva">Elegir</button></article>
-        <article class="card"><h3>Premium</h3><p class="price">29€/día</p><button class="btn primary btn-reserva">Elegir</button></article>
+  <section id="bienvenida" class="section cloud"> <div class="container grid-2-col">
+      <div class="text-col">
+        <h2 class="section-title">Reserva tus Clases de Esquí en Sierra Nevada</h2>
+        <p class="sub-title">Profesionalidad, pasión y seguridad en cada actividad</p>
+        <p>Reserva tus clases de esquí o snowboard en Sierra Nevada en solo unos clics. Con nuestro sistema de reserva online, puedes consultar disponibilidad en tiempo real, elegir el tipo de clase y horario con tu instructor. Pagar de forma segura y recibir confirmación inmediata.</p>
+        <button class="btn primary btn-reserva">Reservar ahora</button>
+      </div>
+      <div class="img-col">
+        <img src="assets/ejemplo1.webp" alt="Instructor de esquí enseñando a alumnos" loading="lazy">
       </div>
     </div>
   </section>
 
-  <section id="reserva" class="section">
+  <section id="info" class="section section-testimonials dynamic-bg">
+    <div class="container text-center">
+      <h2 class="section-title">Organiza tu Viaje de Esquí a Sierra Nevada</h2>
+      <p class="sub-title" style="max-width: 700px; margin-inline: auto;">
+        Te contamos todo lo que necesitas saber sobre Sierra Nevada: accesos, estado de las pistas, y dónde conseguir tus forfaits al mejor precio.
+      </p>
+      <a href="#aventura" class="btn primary">Ver Info de Forfaits</a>
+    </div>
+  </section>
+
+  <section id="aventura" class="section"> <div class="container grid-2-col">
+      
+      <div class="img-col">
+        <img src="assets/ejemplo2.webp" alt="Persona esquiando en la nieve" loading="lazy">
+      </div>
+
+      <div class="text-col">
+        <h2 class="section-title">Forfaits y Guía de Sierra Nevada</h2>
+        <p>El forfait es tu llave de acceso a la montaña. Comprarlo con antelación es clave para evitar colas y asegurar tu plaza en días de alta afluencia. En nuestra guía te explicamos los diferentes tipos de pases (día, varios días, temporada) y cómo gestionarlos.</p>
+        
+        <a href="Sierranevada/index.html#forfaits-content" class="btn primary">
+        Comprar Forfaits
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <section id="servicios-nuevos" class="section">
     <div class="container">
-      <h2 class="section-title">Reserva rápida</h2>
-      <form class="booking" onsubmit="return false" aria-label="Formulario de reserva">
-        <div><label for="f-entrada">Fecha</label><input id="f-entrada" type="date" required /></div>
-        <div><label for="dias">Días</label><select id="dias"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
-        <div><label for="talla">Talla</label><select id="talla"><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select></div>
-        <div><label for="nivel">Nivel</label><select id="nivel"><option>Inicio</option><option>Intermedio</option><option>Avanzado</option></select></div>
-        <div class="wide"><label for="email">Correo</label><input id="email" type="email" placeholder="tu@email.com" required /></div>
-        <div class="cta"><button id="cta-comprobar" class="btn primary">Comprobar disponibilidad</button></div>
-      </form>
+      <h2 class="section-title text-center">Clases de Esquí y Snow</h2>
+      <div class="grid-3">
+        <article class="card card-with-image">
+          <img src="assets/ejemplo3.webp" alt="Clases de Esquí" loading="lazy">
+          <h3>Clases de Esquí en Sierra Nevada</h3> 
+          <p>Clases <strong>particulares de esquí</strong> y en grupo para todos los niveles, desde iniciación hasta perfeccionamiento avanzado.</p>
+        </article>
+        <article class="card card-with-image">
+          <img src="assets/ejemplo4.webp" alt="Clases de Snowboard" loading="lazy">
+          <h3>Clases de Snowboard en Sierra Nevada</h3> 
+          <p>Aprende a deslizarte o mejora tus trucos con nuestros <strong>instructores expertos de snowboard</strong>.</p>
+        </article>
+        <article class="card card-with-image">
+          <img src="assets/ejemplo5.jpg" alt="Cursos en Grupo" loading="lazy">
+          <h3>Cursos de Esquí en Grupo</h3>
+          <p>Cursos intensivos de fin de semana o semana completa. La mejor forma de aprender <strong>esquí en Sierra Nevada</strong> y conocer gente.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="opiniones" class="section section-testimonials">
+    <div class="container">
+      <h2 class="section-title text-center">MILES DE SONRISAS EN LA NIEVE</h2>
+      <p class="sub-title text-center">Nuestra comunidad de esquiadores comparte su experiencia.</p>
+      <div class="grid-3">
+        <article class="card card-testimonial">
+          <p class="stars">★★★★☆</p>
+          <p>"Un fin de semana perfecto. El equipo de Snowlines es súper profesional, con profesores adaptados a absolutamente todos los niveles y edades. La relación calidad-precio es inmejorable"</p>
+          <p class="author">- Joaquín Carceles</p>
+        </article>
+        <article class="card card-testimonial">
+          <p class="stars">★★★★★</p>
+          <p>"Para nosotros, Snowlines es la escuela de esquí de referencia. Su profesionalidad y buen hacer son evidentes. Llevamos años subiendo ¡y siempre confiamos en ellos para nuestras clases!"</p>
+          <p class="author">- Sonia Ulloa</p>
+        </article>
+        <article class="card card-testimonial">
+          <p class="stars">★★★★★</p>
+          <p>"Contratamos unas clases particulares para mis hijas de 8 y 10 años y la experiencia con Snowlines ha sido de diez. Todo muy profesional y un trato súper amable por parte de su profesor."</p>
+          <p class="author">- Fernando Garcia</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -97,5 +173,6 @@
 
   <script src="partials/partials.js"></script>
   <script src="app.js"></script>
+  <script src="snow.js"></script>
 </body>
 </html>

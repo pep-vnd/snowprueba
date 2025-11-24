@@ -1,161 +1,141 @@
-// Envolvemos todo en un contexto de GSAP apuntando a #snv
-// Esto soluciona el problema de que JS no encuentre los elementos.
-let ctx = gsap.context(() => {
+document.addEventListener('DOMContentLoaded', () => {
+    // Lógica para las pestañas (tabs)
+    const menuLinks = document.querySelectorAll('.menu-link');
+    const contentTabs = document.querySelectorAll('.content-tab');
 
-  /* =========================================== */
-  /* ANIMACIÓN GSAP (Parallax) */
-  /* =========================================== */
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: '.scrollDist', // Busca .scrollDist DENTRO de #snv
-        start: '0 0',
-        end: '100% 100%',
-        scrub: 1,
-      },
-    })
-    .fromTo('.sky', { y: 0 }, { y: -200 }, 0)
-    .fromTo('.cloud1', { y: 100 }, { y: -800 }, 0)
-    .fromTo('.cloud2', { y: -150 }, { y: -500 }, 0)
-    .fromTo('.cloud3', { y: -50 }, { y: -650 }, 0)
-    .fromTo('.mountBg', { y: -10 }, { y: -100 }, 0)
-    .fromTo('.mountMg', { y: -30 }, { y: -250 }, 0)
-    .fromTo('.mountFg', { y: -50 }, { y: -600 }, 0);
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
 
+            // Quita la clase 'active' de todos los enlaces
+            menuLinks.forEach(item => item.classList.remove('active'));
+            // Añade 'active' al enlace clicado
+            link.classList.add('active');
 
-  /* =========================================== */
-  /* BOTÓN FLECHA */
-  /* =========================================== */
-  
-  // Busca #arrow-btn DENTRO de #snv
-  const arrowBtn = document.querySelector('#arrow-btn'); 
+            // Oculta todas las pestañas de contenido
+            contentTabs.forEach(tab => tab.classList.remove('visible'));
 
-  arrowBtn.addEventListener('mouseenter', () => {
-    gsap.to('.arrow', { y: 10, duration: 0.8, ease: 'back.inOut(3)', overwrite: 'auto' });
-  });
-
-  arrowBtn.addEventListener('mouseleave', () => {
-    gsap.to('.arrow', { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-  });
-
-  arrowBtn.addEventListener('click', () => {
-    gsap.to(window, { scrollTo: innerHeight, duration: 1.5, ease: 'power1.inOut' });
-  });
-
-
-  /* =========================================== */
-  /* LÓGICA DEL MAPA INTERACTIVO (Pop-up) */
-  /* =========================================== */
-
-  // Busca .map-point DENTRO de #snv
-  const allPoints = document.querySelectorAll('.map-point');
-  // Busca #map-popup DENTRO de #snv
-  const popup = document.getElementById('map-popup');
-  // Busca #map-wrapper img DENTRO de #snv
-  const mapImage = document.querySelector('#map-wrapper img'); 
-
-  allPoints.forEach(point => {
-    point.addEventListener('click', (event) => {
-      event.stopPropagation();
-      
-      const title = point.dataset.title;
-      const description = point.dataset.description;
-      
-      popup.innerHTML = `
-        <h4>${title}</h4>
-        <p>${description}</p>
-      `;
-      
-      popup.style.top = point.style.top;
-      popup.style.left = point.style.left;
-      
-      popup.classList.add('active');
+            // Muestra la pestaña de contenido correspondiente
+            const targetId = link.getAttribute('href');
+            document.querySelector(targetId).classList.add('visible');
+        });
     });
-  });
 
-  const closePopup = () => {
-    popup.classList.remove('active');
-  };
+    // Lógica para el mapa interactivo (popup)
+    const mapPoints = document.querySelectorAll('.map-point');
+    const mapPopup = document.getElementById('map-popup');
+    let activePoint = null;
 
-  mapImage.addEventListener('click', closePopup);
+    mapPoints.forEach(point => {
+        point.addEventListener('click', (e) => {
+            const title = point.dataset.title;
+            const description = point.dataset.description;
 
-}, "#snv"); // <-- La magia de GSAP está aquí.
+            // Si el mismo punto está activo, lo cerramos
+            if (activePoint === point) {
+                mapPopup.classList.remove('active');
+                activePoint = null;
+                return;
+            }
 
+            // Actualiza el contenido del popup
+            mapPopup.innerHTML = `<h4>${title}</h4><p>${description}</p>`;
 
-/* ======================================================= */
-/* === LÓGICA PORTADA DESDE APP.JS (Footer, Scroll, etc.) === */
-/* ======================================================= */
-/*
-  Esta lógica se aplica al Navbar y Footer, que están
-  FUERA del contenedor #snv, por eso va fuera del 
-  contexto de GSAP.
-*/
+            // Calcula la posición del popup
+            const pointRect = point.getBoundingClientRect();
+            const mapWrapperRect = point.closest('#map-wrapper').getBoundingClientRect();
 
-// ---- Año dinámico en el footer ----
-(function setYearWhenReady(){
-  const root = document.getElementById('footer');
-  if(!root) return;
-  const apply = ()=>{
-    const y = root.querySelector('#year');
-    if(y){ y.textContent = new Date().getFullYear(); return true; }
-    return false;
-  };
-  if(apply()) return;
-  // Observador para esperar a que el JS inyecte el HTML del footer
-  const obs = new MutationObserver(()=>{ if(apply()) obs.disconnect(); });
-  obs.observe(root, { childList:true, subtree:true });
-})();
+            let popupX = pointRect.left - mapWrapperRect.left + (pointRect.width / 2);
+            let popupY = pointRect.top - mapWrapperRect.top;
 
+            // Posiciona el popup y lo hace visible
+            mapPopup.style.left = `${popupX}px`;
+            mapPopup.style.top = `${popupY}px`;
+            mapPopup.classList.add('active');
 
-// ===== Barra de progreso de scroll en la navbar =====
-(function wireScrollProgress(){
-  const bar = document.querySelector('.topbar');
-  const line = document.querySelector('.scroll-progress');
-  if(!bar || !line) return;
+            // Ajusta la posición del popup para que no se salga de la pantalla
+            // Se usa requestAnimationFrame para asegurar que se ejecuta después del render inicial
+            requestAnimationFrame(() => {
+                const popupRect = mapPopup.getBoundingClientRect();
 
-  const set = ()=>{
-    const h = document.documentElement;
-    const scrollTop = h.scrollTop || document.body.scrollTop;
-    // Ajuste: El alto del scroll es el '.scrollDist' dentro de #snv
-    const scrollDist = document.querySelector('#snv .scrollDist');
-    const scrollHeight = (scrollDist ? scrollDist.offsetHeight : h.scrollHeight) - h.clientHeight;
-    
-    const pct = Math.max(0, Math.min(1, scrollHeight ? (scrollTop / scrollHeight) : 0));
-    line.style.width = (pct * 100).toFixed(2) + '%';
-  };
-  set();
-  window.addEventListener('scroll', set, { passive:true });
-  window.addEventListener('resize', set);
-})();
+                // Ajuste horizontal
+                if (popupX + popupRect.width > mapWrapperRect.width) {
+                    mapPopup.style.left = `${mapWrapperRect.width - popupRect.width}px`;
+                }
+                if (popupX < 0) {
+                    mapPopup.style.left = '0px';
+                }
 
+                // Ajuste vertical (que el popup aparezca encima del punto)
+                mapPopup.style.transform = `translateY(-${popupRect.height + 15}px)`; // 15px de margen
+            });
 
-// ---- Reveal-once para el footer ----
-const io = new IntersectionObserver((entries, obs)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.classList.add('reveal-in');
-      obs.unobserve(en.target);
+            activePoint = point;
+        });
+    });
+
+    // Cierra el popup si se hace clic fuera de él o de un punto
+    document.addEventListener('click', (e) => {
+        if (!mapPopup.contains(e.target) && !e.target.closest('.map-point')) {
+            mapPopup.classList.remove('active');
+            activePoint = null;
+        }
+    });
+
+    // --- Lógica del Carrusel de Imágenes ---
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let carouselInterval; // Para el autoplay
+
+    function showSlides(n) {
+        // Reinicia el index si se pasa del final o del principio
+        if (n >= slides.length) { slideIndex = 0 }
+        if (n < 0) { slideIndex = slides.length - 1 }
+
+        // Oculta todas las diapositivas y quita la clase 'active' de los puntos
+        slides.forEach(slide => slide.style.display = 'none');
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Muestra la diapositiva actual y activa el punto correspondiente
+        slides[slideIndex].style.display = 'block';
+        dots[slideIndex].classList.add('active');
     }
-  });
-},{
-  rootMargin: '0px 0px -10% 0px', threshold: 0.15
-});
 
-// Espera a que el footer se inyecte (con el script de index.html)
-// y le aplica la animación de revelado.
-(function waitFooter(){
-  const root = document.getElementById('footer');
-  if(!root) return;
-  const bind = ()=>{
-    root.querySelectorAll('.reveal-once').forEach(el=> io.observe(el));
-  };
-  // Intento directo
-  bind();
-  // Y observador por si llega más tarde
-  const mo = new MutationObserver(()=>{ 
-    bind();
-    // Una vez bindeado, nos desconectamos
-    mo.disconnect();
-  });
-  mo.observe(root, { childList:true, subtree:true });
-})();
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+        resetAutoplay();
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+        resetAutoplay();
+    }
+
+    // Navegación con botones
+    prevButton.addEventListener('click', () => plusSlides(-1));
+    nextButton.addEventListener('click', () => plusSlides(1));
+
+    // Navegación con puntos
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => currentSlide(index));
+    });
+
+    // Autoplay
+    function startAutoplay() {
+        carouselInterval = setInterval(() => {
+            plusSlides(1);
+        }, 5000); // Cambia de diapositiva cada 5 segundos
+    }
+
+    function resetAutoplay() {
+        clearInterval(carouselInterval);
+        startAutoplay();
+    }
+
+    // Inicia el carrusel y el autoplay al cargar la página
+    showSlides(slideIndex);
+    startAutoplay();
+});

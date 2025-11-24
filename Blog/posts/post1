@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Título del Post] | Snowlines Blog</title>
+    <meta name="description" content="[Extracto clave para SEO del artículo]">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="partials/partials.css">
+    
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="post-page">
+        
+        <section class="post-hero" style="--bg:url('assets/[IMAGEN_DESTACADA].webp');">
+            </section>
+
+        <article class="post-content">
+
+            <span class="metadata">ESQUÍ · [FECHA DE PUBLICACIÓN]</span>
+            
+            <h1>[Título Completo y Detallado del Artículo]</h1>
+
+            <p class="lead">
+                [Párrafo introductorio clave, se destacará por su tamaño y peso según el estilo en blog.css.]
+            </p>
+            
+            <hr>
+            
+            <h2>[Primer Subtítulo: Desarrolla un tema]</h2>
+            <p>
+                Aquí comienza el desarrollo del contenido. Recuerda utilizar saltos de párrafo para que el texto sea fácil de escanear.
+            </p>
+            <p>
+                Los párrafos base tienen un tamaño de letra de `1.1rem` y un `line-height` cómodo para la lectura.
+            </p>
+
+            <img src="assets/[IMAGEN_EN_TEXTO_1].webp" alt="Descripción visual de la escena">
+
+            <h3>Pasos a seguir:</h3>
+            <ul>
+                <li>Primer paso detallado.</li>
+                <li>Segundo paso, con toda la información necesaria.</li>
+                <li>Tercer y último punto clave.</li>
+            </ul>
+
+            <blockquote>
+                "Si la gente duda de lo lejos que puedes llegar, ve tan lejos que ya no puedas oírles."
+            </blockquote>
+
+            <h2>[Segundo Subtítulo: Sigue desarrollando el tema]</h2>
+            <p>
+                Continúa con la segunda sección de tu artículo. Asegúrate de que el contenido sea valioso y esté bien estructurado.
+            </p>
+            
+            <hr>
+
+            <div class="text-center">
+                <a href="index.html#reserva" class="btn primary">¡Reserva tu clase con Snowlines hoy!</a>
+            </div>
+            
+        </article>
+
+    </main>
+
+    <div id="footer"></div>

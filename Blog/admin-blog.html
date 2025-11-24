@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Blog | Snowlines</title>
+
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../partials/partials.css">
+    <link rel="stylesheet" href="blog.css"> 
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="admin-module">
+        <div class="container">
+
+            <h1>Crear Nuevo Artículo del Blog</h1>
+
+            <form action="/api/posts" method="POST" class="blog-form">
+
+                <div class="form-group">
+                    <label for="titulo">Título del Artículo</label>
+                    <input type="text" id="titulo" name="titulo" required placeholder="Ej: Las 5 Mejores Pistas Azules">
+                </div>
+                
+                <div class="form-group">
+                    <label for="slug">URL (Slug)</label>
+                    <input type="text" id="slug" name="slug" required placeholder="ej-las-5-mejores-pistas-azules" pattern="[a-z0-9-]+">
+                </div>
+                
+                <div class="form-group">
+                    <label for="metadata">Categoría/Metadatos</label>
+                    <input type="text" id="metadata" name="metadata" placeholder="Ej: ESQUÍ · 17 NOV 2025">
+                </div>
+
+                <div class="form-group">
+                    <label for="portada">URL de la Imagen de Portada</label>
+                    <input type="url" id="portada" name="portada" required placeholder="https://ejemplo.com/assets/portada-post.webp">
+                </div>
+
+                <div class="form-group">
+                    <label for="contenido">Contenido del Artículo</label>
+                    <textarea id="contenido" name="contenido" rows="15" required placeholder="Empieza a escribir el contenido de tu artículo aquí..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn primary btn-submit">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Artículo
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+</body>
+</html>

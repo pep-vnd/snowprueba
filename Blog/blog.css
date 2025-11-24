@@ -1,0 +1,222 @@
+/* ==================================== */
+/* 1. LAYOUT Y CONFIGURACIÓN GENERAL    */
+/* ==================================== */
+
+/* Ajustes del contenedor principal */
+.post-page {
+    padding-top: 50px; /* Espacio para el Navbar fijo */
+    padding-bottom: 80px;
+    background-color: var(--white);
+    min-height: 100vh;
+}
+
+.post-content {
+    /* Limita el ancho del texto para óptima legibilidad */
+    max-width: 840px; 
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+/* Imagen destacada en la cabecera del post (Parallax Effect) */
+.post-hero {
+    height: 65vh; 
+    min-height: 450px;
+    /* La URL de la imagen se define con el estilo inline del HTML */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* 🚀 EFECTO CLAVE: Fija la imagen respecto al viewport */
+    position: relative;
+    z-index: 1; 
+    
+    /* Nota: Se ha eliminado margin-bottom para que el contenido se solape */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
+}
+
+/* Capa oscura (Overlay) para mejorar el contraste y lograr la "fusión" */
+.post-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Ajusta este valor (0.1) si tu imagen es demasiado brillante u oscura */
+    background: rgba(0, 0, 0, 0.2); 
+    z-index: 2; 
+}
+
+/* Contenedor del Texto del Artículo: Se desliza y cubre la parte inferior del Hero */
+.post-content {
+    position: relative; 
+    z-index: 10; /* Asegura que el contenido esté por encima del Hero fijo */
+    background-color: var(--white); /* 💡 ESENCIAL: Fondo sólido para la legibilidad */
+    
+    /* Mueve el contenido hacia arriba para que se solape con el Hero */
+    margin-top: -80px; 
+    padding-top: 40px; 
+    
+    /* Estilo visual para la "fusión" */
+    border-radius: 12px 12px 0 0; 
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15); 
+}
+
+/* ==================================== */
+/* 2. TIPOGRAFÍA Y ESTRUCTURA DE TEXTO  */
+/* ==================================== */
+
+/* Metadatos (categoría y fecha) */
+.post-content .metadata {
+    display: block;
+    font-size: 0.95em;
+    color: var(--gray); 
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+/* Título principal */
+.post-content h1 {
+    font-size: 3.2em;
+    color: var(--ink); 
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 1.1;
+    border-bottom: 2px solid var(--sand); 
+    padding-bottom: 15px;
+}
+
+/* Párrafo principal (lead) - Estilo destacado */
+.post-content .lead {
+    font-size: 1.5rem;
+    font-weight: 300; 
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    border-left: 4px solid var(--deepblue); 
+}
+
+/* Subtítulos */
+.post-content h2 {
+    font-size: 2.2em;
+    color: var(--deepblue); 
+    margin-top: 50px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.post-content h3 {
+    font-size: 1.6em;
+    color: var(--ink);
+    margin-top: 35px;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.post-content h3::before {
+    content: '▪';
+    color: var(--sand);
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* Párrafos base */
+.post-content p {
+    font-size: 1.15rem; 
+    line-height: 1.7;
+    color: #495057;
+    margin-bottom: 25px;
+}
+
+/* Listas */
+.post-content ul {
+    list-style: none; 
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+.post-content ul li {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #343a40;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 8px;
+}
+.post-content ul li::before {
+    content: '•'; 
+    color: var(--deepblue); 
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    position: absolute;
+    left: 0;
+}
+
+/* Bloque de cita (blockquote) - Estilo moderno y limpio */
+.post-content blockquote {
+    background: #f0f8ff; 
+    border-left: 6px solid var(--sand); 
+    padding: 25px;
+    margin: 40px 0;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #3c7795;
+    line-height: 1.5;
+    border-radius: 8px;
+}
+
+/* Imágenes dentro del artículo */
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Separador horizontal */
+.post-content hr {
+    border: none;
+    border-top: 1px dashed var(--gray); 
+    opacity: 0.5;
+    margin: 50px 0;
+}
+
+/* Botón de llamada a la acción */
+.btn.primary {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 25px; 
+    font-weight: 800;
+}
+
+/* ==================================== */
+/* 4. RESPONSIVE                        */
+/* ==================================== */
+
+@media (max-width: 768px) {
+    .post-content {
+        padding: 0 15px;
+        margin-top: -60px; 
+        padding-top: 20px;
+    }
+    .post-content h1 {
+        font-size: 2em;
+        padding-bottom: 10px;
+    }
+    .post-content h2 {
+        font-size: 1.6em;
+    }
+    .post-content .lead {
+        font-size: 1.2rem;
+        padding-left: 10px;
+    }
+    .post-hero {
+        height: 35vh;
+        min-height: 250px;
+        background-attachment: scroll; /* Desactiva el parallax en móviles para mejor rendimiento */
+    }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Clases de Esquí/Snowboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="booking-card">
+        <header class="card-header">
+            <h1>Reservar Clase</h1>
+            <p>¡Solo unos pasos para tu aventura en la nieve!</p>
+        </header>
+        <div id="booking-form-wrapper" class="form-content">
+            </div>
+        <div id="loading-spinner" class="spinner" style="display: none;"></div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+        <div id="navigation-buttons" class="card-footer">
+            <button id="prev-btn" class="btn btn-secondary" style="display: none;"><i class="fas fa-arrow-left"></i> Anterior</button>
+            <button id="next-btn" class="btn btn-primary">Siguiente <i class="fas fa-arrow-right"></i></button>
+            <button id="confirm-btn" class="btn btn-primary" style="display: none;">Confirmar Reserva <i class="fas fa-check"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

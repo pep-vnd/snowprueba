@@ -52,13 +52,209 @@ a { color: inherit; text-decoration: none; }
 .card.highlight { border: 2px solid var(--sand); }
 .price { font-weight: 900; font-size: 20px; }
 
-/* Responsive */
+/* =========================================== */
+/* === NUEVOS ESTILOS PARA SECCIONES DE INICIO === */
+/* =========================================== */
+
+.text-center {
+  text-align: center;
+}
+.sub-title {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-top: -5px;
+  margin-bottom: 20px;
+}
+.sub-title.text-center {
+  margin-inline: auto;
+  max-width: 600px;
+}
+
+/* Layout de 2 columnas (para secciones 1 y 2) */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+.grid-2-col .img-col img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.grid-2-col .text-col p {
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 500px;
+}
+.grid-2-col .text-col .btn {
+  margin-top: 15px;
+}
+/* Modificador para invertir columnas en desktop */
+.grid-2-col.reverse-on-desktop .img-col {
+  order: 2;
+}
+
+/* Layout de 3 tarjetas con imagen (para sección 3) */
+.card-with-image {
+  overflow: hidden; /* Para que la imagen respete el borde redondeado */
+  padding: 0; /* Quitamos padding para que la imagen toque el borde */
+}
+.card-with-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+.card-with-image h3 {
+  font-size: 1.3rem;
+  margin: 18px 18px 10px 18px;
+}
+.card-with-image p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0 18px 20px 18px;
+}
+
+/* Layout de Testimonios (para sección 4) */
+.section-testimonials {
+  background: var(--ink);
+  color: #fff;
+}
+.section-testimonials .section-title,
+.section-testimonials .sub-title {
+  color: #fff;
+}
+.card-testimonial {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.card-testimonial .stars {
+  font-size: 1.2rem;
+  color: var(--sand);
+  margin-bottom: 10px;
+}
+.card-testimonial p {
+  line-height: 1.6;
+  opacity: 0.9;
+  flex-grow: 1; /* Para que las tarjetas tengan la misma altura */
+}
+.card-testimonial .author {
+  font-weight: 700;
+  opacity: 1;
+  margin-top: 15px;
+}
+
+
+/* =========================================== */
+/* === MODIFICACIONES SUGERIDAS (AÑADIDAS) === */
+/* =========================================== */
+
+/* 1. Iconos para la sección de beneficios */
+.beneficio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.beneficio-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--sand);
+  stroke-width: 1.5; /* Un poco más fino */
+}
+
+/* 2. Fondo dinámico para la sección "Organiza tu viaje" */
+.dynamic-bg {
+  /* Un patrón sutil de "montañas" o "copos" usando SVG y degradados */
+  background-image: 
+    /* Un degradado muy sutil para dar profundidad */
+    linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.0)),
+    /* Patrón de puntos/copos muy tenues */
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='5' cy='5' r='1'/%3E%3Ccircle cx='15' cy='15' r='1'/%3E%3Ccircle cx='25' cy='25' r='1'/%3E%3Ccircle cx='35' cy='35' r='1'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: var(--ink); /* Asegura que el fondo base sigue siendo el oscuro */
+}
+
+/* 3. Ajuste para los botones CTA del Hero */
+.hero-ctas { 
+  margin-top: 20px; /* Más espacio entre el subtítulo y los botones */
+}
+
+/* =========================================== */
+/* === MODIFICACIONES: EFECTOS HOVER SUTILES === */
+/* =========================================== */
+
+/* 1. Efecto zoom-in para las tarjetas de clases */
+.card-with-image {
+  /* Prepara la tarjeta para la transición */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-with-image img {
+  /* Prepara la imagen para la transición */
+  transition: transform 0.4s ease;
+}
+
+.card-with-image:hover {
+  /* Levanta la tarjeta */
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15); /* Sombra más grande */
+}
+
+.card-with-image:hover img {
+  /* Hace zoom a la imagen */
+  transform: scale(1.05);
+}
+
+/* 2. Efecto hover para los iconos de beneficios */
+.beneficio-item {
+  transition: transform 0.3s ease;
+}
+.beneficio-item:hover {
+  transform: translateY(-5px); /* Sube el bloque entero */
+}
+
+/* 3. Efecto hover para los testimonios */
+.card-testimonial {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.card-testimonial:hover {
+  transform: translateY(-5px);
+  border-color: rgba(252, 210, 145, 0.4); /* Resalta el borde con tu color --sand */
+}
+
+/* =========================================== */
+/* === RESPONSIVE (MODIFICADO) === */
+/* =========================================== */
 @media (max-width: 920px) {
   .hero { min-height: 420px; }
   .hero-slider { height: clamp(360px, 62vh, 560px); }
   .hero-copy h1 { font-size: clamp(26px, 8vw, 34px); }
   .sub { font-size: clamp(14px, 4vw, 16px); }
-  .grid-3 { grid-template-columns: 1fr; }
   .logo-round { display: none; }
   .nav-arrow { width: 38px; height: 38px; font-size: 24px; }
+
+  /* Grid de 3 columnas pasa a 1 */
+  .grid-3 { 
+    grid-template-columns: 1fr; 
+    gap: 25px;
+  }
+  
+  /* Grid de 2 columnas pasa a 1 */
+  .grid-2-col {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .grid-2-col.reverse-on-desktop .img-col {
+    order: 0; /* Resetea el orden en móvil */
+  }
+  .grid-2-col .img-col img {
+    height: 300px; /* Altura más adecuada para móvil */
+  }
 }

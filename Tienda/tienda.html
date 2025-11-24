@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda Oficial | Snowlines</title>
+  <meta name="description" content="Equipamiento y ropa oficial de Snowlines Sierra Nevada." />
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../partials/partials.css" />
+  <link rel="stylesheet" href="tienda.css" />
+</head>
+
+<!-- 
+  CAMBIO 1: Quitamos 'always-solid-nav'.
+  Ahora el navbar será transparente sobre la imagen de fondo.
+-->
+<body class="contacto subpage always-solid-nav"></body>
+
+  <div id="preloader">
+    <img src="../assets/logo.webp" alt="Cargando..." onerror="this.src='../assetsG/logo.png'">
+  </div>
+
+  <div id="navbar"></div>
+
+  <!-- CABECERA MODIFICADA -->
+  <header class="shop-header">
+    <!-- CAMBIO 2: Añadimos el overlay para el efecto de oscurecido -->
+    <div class="shop-header-overlay" aria-hidden="true"></div>
+    
+    <div class="container text-center relative-z">
+      <!-- El texto ahora será blanco -->
+      <h1 class="section-title shop-title text-white">Snowlines Shop</h1>
+      <p class="sub-title shop-desc text-white-op">Equipamiento técnico y lifestyle para disfrutar de la nieve.</p>
+    </div>
+  </header>
+
+  <main class="section shop-section">
+    <div class="container">
+      <div class="shop-grid">
+        <!-- (El resto del contenido del grid sigue igual) -->
+        <!-- Producto 1 -->
+        <article class="product-card">
+          <span class="badge-new">NUEVO</span>
+          <div class="product-image-container">
+            <img src="../assets/camiseta.webp" alt="Camiseta Snowlines" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="placeholder-svg" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.38 3.4a1.6 1.6 0 0 0-1.6-1.6H5.22a1.6 1.6 0 0 0-1.6 1.6l-2.4 5.6a.8.8 0 0 0 .7 1.1h1.92l.72 10.8a1.6 1.6 0 0 0 1.6 1.5h11.68a1.6 1.6 0 0 0 1.6-1.5l.72-10.8h1.92a.8.8 0 0 0 .7-1.1z"/></svg>
+            </div>
+          </div>
+          <div class="product-details">
+            <h3 class="product-name">Camiseta Signature</h3>
+            <p class="product-price">25,00 €</p>
+            <button class="btn primary snipcart-add-item"
+              data-item-id="camiseta-001"
+              data-item-price="25.00"
+              data-item-url="/Tienda/tienda.html" 
+              data-item-name="Camiseta Signature">
+              Añadir al carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Producto 2 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="../assets/sudadera.webp" alt="Sudadera Snowlines" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="placeholder-svg" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.38 3.4a1.6 1.6 0 0 0-1.6-1.6H5.22a1.6 1.6 0 0 0-1.6 1.6l-2.4 5.6a.8.8 0 0 0 .7 1.1h1.92l.72 10.8a1.6 1.6 0 0 0 1.6 1.5h11.68a1.6 1.6 0 0 0 1.6-1.5l.72-10.8h1.92a.8.8 0 0 0 .7-1.1z"/><path d="M10 10l2-2 2 2"/></svg>
+            </div>
+          </div>
+          <div class="product-details">
+            <h3 class="product-name">Sudadera Après-Ski</h3>
+            <p class="product-price">45,00 €</p>
+            <button class="btn primary snipcart-add-item"
+              data-item-id="sudadera-001"
+              data-item-price="45.00"
+              data-item-url="/Tienda/tienda.html"
+              data-item-name="Sudadera Après-Ski">
+              Añadir al carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Producto 3 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="../assets/gorra.webp" alt="Gorra Snowlines" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div class="placeholder-svg" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 12h20"/><path d="M7 20v-4"/><path d="M17 20v-4"/><path d="M12 12v-6c0-2.5-2-4-4.5-4h-1"/><path d="M16.5 2c-2.5 0-4.5 1.5-4.5 4v6"/></svg>
+            </div>
+          </div>
+          <div class="product-details">
+            <h3 class="product-name">Gorra Trucker</h3>
+            <p class="product-price">18,00 €</p>
+            <button class="btn primary snipcart-add-item"
+              data-item-id="gorra-001"
+              data-item-price="18.00"
+              data-item-url="/Tienda/tienda.html"
+              data-item-name="Gorra Trucker">
+              Añadir al carrito
+            </button>
+          </div>
+        </article>
+
+        <!-- Placeholders -->
+        <article class="product-card placeholder">
+          <div class="product-image-container"><span class="coming-soon">Próximamente</span></div>
+          <div class="product-details">
+             <h3 class="product-name">Accesorio</h3><p class="product-price">--</p>
+             <button class="btn ghost" disabled>Sin Stock</button>
+          </div>
+        </article>
+        <article class="product-card placeholder">
+          <div class="product-image-container"><span class="coming-soon">Próximamente</span></div>
+          <div class="product-details">
+             <h3 class="product-name">Material</h3><p class="product-price">--</p>
+             <button class="btn ghost" disabled>Sin Stock</button>
+          </div>
+        </article>
+        <article class="product-card placeholder">
+          <div class="product-image-container"><span class="coming-soon">Próximamente</span></div>
+          <div class="product-details">
+             <h3 class="product-name">Merchandising</h3><p class="product-price">--</p>
+             <button class="btn ghost" disabled>Sin Stock</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="../partials/partials.js"></script>
+  <script src="../app.js"></script>
+  <script src="tienda.js"></script>
+</body>
+</html>

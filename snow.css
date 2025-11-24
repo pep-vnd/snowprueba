@@ -1,0 +1,26 @@
+/*
+ * CSS para el efecto de nieve.
+ * Lo posiciona encima del slider hero, pero debajo del texto y botones.
+*/
+#snow-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /*
+     * Z-index clave:
+     * Tu .hero-slider no tiene z-index (es 0).
+     * Tu .hero-caption (texto) tiene z-index: 5.
+     * Tu .nav-arrow (flechas) tiene z-index: 6.
+     * Poniendo z-index: 4, la nieve queda entre las fotos y el texto.
+    */
+    z-index: 4;
+    
+    /*
+     * ¡Esto es MUY importante!
+     * Evita que el canvas "tape" los botones y el swipe del carrusel.
+    */
+    pointer-events: none;
+}

@@ -15,7 +15,11 @@ function simularReserva(){
 }
 document.addEventListener('click', (e)=>{
   const t = e.target;
-  if(t.id === 'cta-nav' || t.id === 'cta-hero' || t.classList.contains('btn-reserva')) scrollToId('reserva');
+  /* MODIFICACIÓN:
+    Cambiado 'reserva' por 'bienvenida', ya que 'bienvenida'
+    es el ID que existe en tu index.html para la sección de reserva.
+  */
+  if(t.id === 'cta-nav' || t.id === 'cta-hero' || t.classList.contains('btn-reserva')) scrollToId('bienvenida');
   if(t.id === 'cta-comprobar') simularReserva();
 });
 

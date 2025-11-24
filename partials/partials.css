@@ -28,7 +28,7 @@
   position: absolute; top: 0; left: 0; width: 100%; height: 90px; z-index: 2; pointer-events: none;
 }
 .footer-wave svg { display: block; width: 100%; height: 100%; }
-.footer-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.55)), url('../assets/footer.jpg') center 42% / cover no-repeat; opacity: 0.96; }
+.footer-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.55)), url('../assets/footer.webp') center 42% / cover no-repeat; opacity: 0.96; }
 .footer-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.25) 70%), linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 100%); pointer-events: none; }
 .site-footer .foot, .site-footer .foot-note { position: relative; z-index: 1; }
 .foot { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 28px; padding: 28px 0; }
@@ -55,9 +55,10 @@
 .foot-mobile { display: none; }
 
 /* Animaciones reveal */
-.reveal-once { opacity: 0; transition: all 0.6s; }
+/* Fix: en escritorio mantenemos visibles las columnas del footer */
+.reveal-once { opacity: 1; transition: all 0.6s; }
 .foot-desktop .foot-col.reveal-once {
-  opacity: 0; transform: translateY(20px); transition-property: opacity, transform;
+  opacity: 1; transform: none; transition-property: opacity, transform;
   transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 .foot-desktop .foot-col.reveal-once:nth-child(1) { transition-delay: 0.1s; }
@@ -94,21 +95,12 @@
     border-bottom-color: rgba(255, 255, 255, 0.18);
     color: #fff;
   }
-
-  /* NUEVA CLASE: Cuando el menú está abierto */
   .topbar.menu-open {
     background: #fff; color: var(--ink); border-bottom-color: #eee;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
     backdrop-filter: none;
   }
-
-  /* ================== CAMBIO 1: INICIO ================== */
-  /* Título "Snowlines" en negro cuando el menú está abierto */
-  .topbar.menu-open .brand {
-    color: var(--ink);
-  }
-  /* ================== CAMBIO 1: FIN ================== */
-
+  .topbar.menu-open .brand { color: var(--ink); }
   .topbar.menu-open .hamburger span { background: var(--ink); }
   .topbar.menu-open .navlist a { color: var(--ink); }
 
@@ -117,40 +109,111 @@
   }
   .topbar .brand-logo { width: 52px; height: 52px; }
 
-  /* CAMBIOS EN EL MENÚ DESPLEGABLE */
+  /* ================== CAMBIOS DE "VIDILLA" v4 ================== */
+
+  /* 1. Animación del icono de hamburguesa a 'X' */
+  .hamburger span {
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                opacity 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .topbar.menu-open .hamburger span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .topbar.menu-open .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .topbar.menu-open .hamburger span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  /* 2. Estilos del menú desplegable */
   .navlist {
     position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; z-index: 500;
-    display: block; gap: 0; padding: 0;
+    display: block; gap: 0; padding: 10px 0;
     background: #fff; backdrop-filter: none; border: none; border-top: 1px solid #eee; border-radius: 0;
     box-shadow: none; overflow-y: auto; 
     transform: translateX(100%); visibility: hidden; 
     transition: transform 0.3s ease-out, visibility 0.3s ease-out; 
   }
-
   .navlist.open {
     display: block; transform: translateX(0); visibility: visible;
   }
 
-  .navlist li { list-style: none; border-bottom: 1px solid #eee; }
-  .navlist li:last-child { border-bottom: none; }
+  .navlist li { 
+    list-style: none; 
+    border-bottom: none;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+  .navlist li:last-child { 
+    padding-top: 0;
+    border-top: none;
+    margin-top: 0;
+  }
+
+  /* Animación escalonada al abrir (se mantiene) */
+  .navlist.open li { opacity: 1; transform: translateY(0); }
+  .navlist.open li:nth-child(1) { transition-delay: 0.1s; }
+  .navlist.open li:nth-child(2) { transition-delay: 0.15s; }
+  .navlist.open li:nth-child(3) { transition-delay: 0.2s; }
+  .navlist.open li:nth-child(4) { transition-delay: 0.25s; }
+  .navlist.open li:nth-child(5) { transition-delay: 0.3s; }
+  .navlist.open li:nth-child(6) { transition-delay: 0.35s; } /* El botón */
+
 
   .navlist a, .navlist .btn {
     display: flex; align-items: center; justify-content: space-between;
-    width: 100%; padding: 16px 18px; font-size: 16px; font-weight: 600; 
+    width: 100%; padding: 16px 18px; 
+    font-size: 24px; 
+    font-weight: 700; 
     color: var(--ink);
     text-decoration: none; border-radius: 0; border: none; box-shadow: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+    position: relative;
+    padding-bottom: 16px; 
   }
 
-  /* ================== CAMBIO 2: INICIO ================== */
-  /* Quitamos la flechita ">" */
+  /* 3. La línea naranja (::after) */
   .navlist a::after { 
-    content: none; 
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 18px; 
+    /* 4. Línea CORTA y GRUESA */
+    width: 40px;
+    height: 3px;
+    background: var(--sand);
+    /* 5. Visible por defecto */
+    transform: scaleX(1); 
+    transform-origin: left; 
+    /* 6. Preparada para la animación de "crecimiento" */
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  /* ================== CAMBIO 2: FIN ================== */
   
-  .navlist a:hover { background: #f9f9f9; }
-  .navlist .btn.primary { background: var(--sand); color: #242424; justify-content: center; margin: 20px 18px; width: auto; }
+  /* 7. Animación al pasar el ratón ("empuje" + "crecimiento") */
+  .navlist a:hover { 
+    background: none;
+    transform: translateX(5px); /* Efecto "empuje" */
+  }
+  .navlist a:hover::after {
+    transform: scaleX(1.5); /* La línea "crece" un 50% */
+  }
+
+  .navlist .btn.primary { 
+    background: var(--sand); color: #242424; justify-content: center; 
+    margin: 20px 18px 20px; 
+    width: auto; 
+    font-size: 20px; 
+    padding: 16px 18px; 
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .navlist .btn.primary:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+  }
   .navlist .btn.primary::after { content: none; }
+  /* ================== FIN DE LOS CAMBIOS DE "VIDILLA" ================== */
 
 
   /* Footer de móvil (sin cambios) */
@@ -192,3 +255,181 @@
 
 @media (max-width: 680px) { /* Ya no necesitamos la regla de grid */ }
 @media (prefers-reduced-motion: reduce) { #preloader img { animation: none; } }
+
+/* =========================================== */
+/* === ESTILOS SNIPCART (Solución Estética) === */
+/* =========================================== */
+
+/* 1. Estilos del botón del carrito (sin cambios) */
+.snipcart-li-btn {
+  display: flex;
+  align-items: center;
+}
+.snipcart-btn-icon {
+  background: transparent !important; /* ¡Esto quita el recuadro blanco! */
+  border: none !important;            /* Quita cualquier borde */
+  box-shadow: none !important;        /* Quita sombras si las hubiera */
+  padding: 5px;
+  cursor: pointer;
+  display: flex;                      /* Centra el contenido */
+  align-items: center;
+  justify-content: center;
+}
+
+.snipcart-btn-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain; /* Mantiene la proporción */
+  filter: invert(1);   /* Hace el icono blanco */
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+/* Efecto hover opcional */
+.snipcart-btn-icon:hover img {
+  transform: scale(1.1);
+}
+
+/* 2. SOLUCIÓN (Problema 2): Ocultar burbuja del carrito */
+.snipcart-total-items {
+  display: none !important;
+}
+
+/* 3. Estilos tarjetas de producto (sin cambios) */
+.card-with-image {
+  display: flex;
+  flex-direction: column;
+}
+.card-with-image p {
+  flex-grow: 1;
+}
+.product-buy-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px 20px 18px;
+  margin-top: 15px;
+}
+.product-price {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--deepblue);
+}
+.product-buy-cta .btn.primary {
+  font-weight: 700;
+  padding: 8px 14px;
+}
+
+/* 4. Adaptación móvil (sin cambios) */
+@media (max-width: 920px) {
+  .snipcart-li-btn {
+    margin-left: 0;
+  }
+  .snipcart-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 18px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    position: relative;
+  }
+  .snipcart-btn-icon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    width: 40px;
+    height: 3px;
+    background: var(--sand);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .snipcart-btn-icon:hover::after {
+    transform: scaleX(1.5);
+  }
+  .snipcart-btn-icon img {
+    width: 24px;
+    height: 24px;
+    filter: none;
+  }
+}
+
+
+/* ========= SOLUCIÓN ESTÉTICA (NUEVO) ========= */
+/*
+  El navbar (.topbar) vuelve a tener z-index: 100.
+*/
+
+/* 1. El fondo oscuro SÍ se pone detrás del navbar. */
+.snipcart-backdrop {
+  z-index: 99 !important; /* 99 (justo detrás del navbar) */
+}
+
+/* 2. El modal del carrito (panel lateral) lo "empujamos" 
+     para que empiece justo debajo del navbar.
+*/
+#snipcart-modal,
+.snipcart-modal {
+  /* Usamos la variable --nav-h que tu JS ya calcula */
+  top: var(--nav-h) !important; 
+  
+  /* Ajustamos su altura para que llene el resto de la pantalla */
+  height: calc(100vh - var(--nav-h)) !important;
+
+  /* Le damos un z-index para que esté sobre el fondo (99) y el navbar (100) */
+  z-index: 101 !important; 
+  transition: top 0.28s ease, height 0.28s ease;
+}
+/* =========================================== */
+/* === SOLUCIÓN ESTÉTICA (Color Carrito) === */
+/* =========================================== */
+
+/* Coloreamos la cabecera del carrito para que combine
+   con el color --ink de la navbar.
+*/
+.snipcart-cart-header {
+  /* Usamos el color --ink de tu paleta */
+  background: var(--ink) !important;
+  color: #fff !important; /* Texto blanco */
+}
+
+/* Título ("Tu carrito") en blanco */
+.snipcart-cart-header__title {
+  color: #fff !important;
+}
+
+/* Botón de cerrar (la 'X') en blanco */
+.snipcart-cart-header__close-button {
+  color: #fff !important;
+  opacity: 0.8;
+}
+.snipcart-cart-header__close-button:hover {
+  opacity: 1;
+}
+
+/* Contador de ítems ("2 artículos") en blanco */
+.snipcart-cart-header__options {
+  color: #fff !important;
+}
+
+html.snipcart-sidecart--opened .topbar {
+    /* Mismo color de fondo y desenfoque que cuando haces scroll */
+    background: rgb(15, 23, 42) !important; 
+    backdrop-filter: saturate(140%) blur(6px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    
+    /* Forzamos que la transición sea suave (0.4s coincide con la apertura del carrito) */
+    transition: background 0.4s ease-in-out, box-shadow 0.4s ease;
+}
+
+/* Opcional: Si quieres que al abrir el carrito el logo y las letras 
+   hagan un pequeño "ajuste" para indicar interacción.
+*/
+html.snipcart-sidecart--opened .topbar .nav {
+    padding: 10px 0; /* Lo hacemos un pelín más compacto, igual que al hacer scroll */
+}

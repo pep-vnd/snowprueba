@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog de la Montaña · Snowlines</title>
+    <meta name="description" content="Guías, consejos y noticias de Sierra Nevada. Descubre las últimas novedades de las pistas." />
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../partials/partials.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Variables CSS (Asumimos estas variables de color de tu proyecto principal) */
+        :root{
+            --deepblue:#3c7795;
+            --gray:#707070;
+            --white:#ffffff;
+            --ink:#0F172A;
+        }
+
+        /* Estilos base */
+        *{box-sizing:border-box}
+        body{margin:0; font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Inter,Arial; color:var(--ink); background:var(--white);}
+        a{color:inherit; text-decoration:none}
+        
+        /* Ajuste del contenedor principal de contenido para la sección del blog */
+        .container-blog {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ==================================== */
+        /* 1. CABECERA PRINCIPAL DEL BLOG (HERO)*/
+        /* ==================================== */
+
+        .hero-blog {
+            /* Fondo */
+            height: 50vh; 
+            min-height: 350px; 
+            /* Fondo - Cambiar esta ruta a tu imagen panorámica */
+            /* IMPORTANTE: Si la imagen está en la carpeta assets de la raíz, ajusta la ruta */
+            background-image: url('assets/ImagenPortada.webp'); 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center; /* Centrado vertical */
+            justify-content: center; /* Centrado horizontal */
+            text-align: center;
+            
+            /* Ajuste extra para que el navbar fijo no tape el contenido si es necesario */
+            margin-top: 0; 
+        }
+
+        /* Capa de superposición para mejorar el contraste del texto */
+        .hero-blog::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1;
+        }
+
+        .hero-caption {
+            position: relative;
+            z-index: 2; 
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+        }
+
+        .hero-caption h1 {
+            font-size: 3.5em;
+            margin-bottom: 5px;
+        }
+
+        .hero-caption .sub {
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        /* ==================================== */
+        /* 2. LISTADO DE ENTRADAS (NUEVO ESTILO)*/
+        /* ==================================== */
+
+        #blog-section {
+            padding: 80px 0;
+            background-color: #f8f8f8;
+            text-align: center; 
+        }
+
+        /* Títulos de la Sección */
+        .blog-main-title {
+            font-size: 36px;
+            color: var(--ink); 
+            margin-bottom: 5px;
+        }
+
+        .blog-subtitle {
+            font-size: 18px;
+            color: var(--gray); 
+            margin-bottom: 40px;
+        }
+
+        /* Cuadrícula de las tarjetas - 4 COLUMNAS */
+        .blog-grid-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 30px;
+        }
+
+        /* Estilo de la Tarjeta */
+        .blog-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; 
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        /* Metadatos (Autor/Fecha) */
+        .card-body .metadata {
+            font-size: 0.8em;
+            color: #6c757d;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: var(--deepblue);
+            margin: 0 0 10px 0;
+            min-height: 50px; 
+        }
+
+        .card-snippet {
+            color: #495057;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .btn-read-more {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #ff6a00; 
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .btn-read-more:hover {
+            background-color: #e06000;
+        }
+
+        .card-footer {
+            background-color: #f0f3f5;
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--gray);
+        }
+
+        /* ==================================== */
+        /* 3. DISEÑO ADAPTATIVO (RESPONSIVE)    */
+        /* ==================================== */
+
+        /* Ajustes para 3 Columnas */
+        @media (max-width: 1200px) {
+            .blog-grid-wrapper {
+                grid-template-columns: repeat(3, 1fr); 
+            }
+        }
+
+        /* Ajustes para 2 Columnas (Tablet) */
+        @media (max-width: 768px) {
+            #blog-section {
+                padding: 40px 0;
+            }
+            .blog-grid-wrapper {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .hero-caption h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        /* Ajustes para 1 Columna (Móvil) */
+        @media (max-width: 600px) {
+            .blog-grid-wrapper {
+                grid-template-columns: 1fr; 
+            }
+        }
+    </style>
+</head>
+
+<body class="subpage always-solid-nav">
+
+    <div id="preloader">
+        <img src="../assets/logo.webp" alt="Cargando..." onerror="this.src='../assetsG/logo.png'">
+    </div>
+
+    <div id="navbar"></div>
+
+    <main>
+        
+        <section class="hero-blog">
+            <div class="hero-caption">
+                <h1>📰 Blog y Novedades de Montaña</h1>
+                <p class="sub">¡Inspiración, consejos y la actualidad de Sierra Nevada!</p>
+            </div>
+        </section>
+        
+        <section id="blog-section">
+            <div class="container-blog">
+
+                <div class="blog-grid-wrapper"> 
+                    
+                    <article class="blog-card">
+                        <img src="assets/Imagen1.webp" class="card-image" alt="Apertura de temporada">
+                        <div class="card-body">
+                            <h4 class="card-title">Las nuevas mejoras en Sierra Nevada para 2025/2026.</h4>
+                            <p class="card-snippet">Sierra Nevada se prepara para una nueva temporada llena de mejoras. Entre las principales novedades destacan las mejoras en nieve artificial, la modernización de los remontes en Borreguiles y la renovación de espacios en Pradollano.</p>
+                            <a href="posts/post1.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Sergio Téllez</div>
+                            <div class="post-date">📅 Publicado: 28/10/2025</div>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <img src="assets/Imagen2.webp" class="card-image" alt="Esquiando en pistas azules">
+                        <div class="card-body">
+                            <h4 class="card-title">Las 5 mejores pistas azules para empezar la temporada.</h4>
+                            <p class="card-snippet">Te mostramos las pistas de nivel intermedio con mejor nieve y menor afluencia para que ganes confianza sin agobios.</p>
+                            <a href="posts/post1.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Sergio Téllez</div>
+                            <div class="post-date">📅 Publicado: 17/11/2025</div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="assets/Imagen3.webp" class="card-image" alt="Equipo esencial para Snowboard">
+                        <div class="card-body">
+                            <h4 class="card-title">El equipo esencial para tu primer día de Snowboard.</h4>
+                            <p class="card-snippet">Desde el casco hasta las botas, te explicamos qué necesitas y dónde puedes ahorrar sin sacrificar seguridad ni calidad.</p>
+                            <a href="post-equipo-esencial.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Sergio Téllez</div>
+                            <div class="post-date">📅 Publicado: 10/11/2025</div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="assets/Imagen4.webp" class="card-image" alt="Clases de esquí para niños">
+                        <div class="card-body">
+                            <h4 class="card-title">Cómo hacer que los niños amen la nieve (y la clase).</h4>
+                            <p class="card-snippet">Claves para elegir el instructor adecuado y los mejores trucos para mantener la diversión de los más pequeños en la montaña.</p>
+                            <a href="post-aprender-con-ninos.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Sergio Téllez</div>
+                            <div class="post-date">📅 Publicado: 01/11/2025</div>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <img src="assets/Imagen5.webp" class="card-image" alt="Esquiador Freeride">
+                        <div class="card-body">
+                            <h4 class="card-title">5 zonas fuera de pista de Sierra Nevada que debes conocer.</h4>
+                            <p class="card-snippet">Un recorrido por los mejores rincones de la estación para los amantes del freeride con experiencia. ¡Seguridad primero!</p>
+                            <a href="post-freeride.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Equipo Técnico</div>
+                            <div class="post-date">📅 Publicado: 25/10/2025</div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="assets/Imagen6.webp" class="card-image" alt="Evento en la estación">
+                        <div class="card-body">
+                            <h4 class="card-title">Calendario de Eventos: Competiciones y Fiestas 2026.</h4>
+                            <p class="card-snippet">No te pierdas los eventos más importantes de la temporada. Desde competiciones de Copa del Mundo hasta fiestas temáticas.</p>
+                            <a href="post-eventos.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Snowlines Team</div>
+                            <div class="post-date">📅 Publicado: 20/10/2025</div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card">
+                        <img src="assets/Imagen7.webp" class="card-image" alt="Mantenimiento de esquís">
+                        <div class="card-body">
+                            <h4 class="card-title">Mantenimiento de tu equipo de esquí: ¡Laminado y encerado!</h4>
+                            <p class="card-snippet">Aprende las técnicas básicas para mantener tus esquís y tablas en óptimas condiciones en casa y alargar su vida útil.</p>
+                            <a href="post-mantenimiento.html" class="btn-read-more">Leer Artículo</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">👤 Autor: Equipo Técnico</div>
+                            <div class="post-date">📅 Publicado: 15/10/2025</div>
+                        </div>
+                    </article>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../partials/partials.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>

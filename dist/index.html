@@ -1,131 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>ScrollTrigger: SVG Text Mask</title>
-  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css" />
-  <!-- CSS del subdominio -->
-  <link rel="stylesheet" href="./style.css" />
-  <!-- CSS del sitio (navbar/footer) -->
-  <link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sierra Nevada - Estación de Esquí y Snow</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Navbar (inyectado al inicio) -->
-  <div id="navbar"></div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SIERRA NEVADA</h1>
+      <p>La estación de esquí más al sur de Europa</p>
+      </div>
+  </section>
 
-  <!-- ⬇️ TODO lo del subdominio encapsulado para no romper el sitio -->
-  <div id="snv">
-    <div class="scrollDist"></div>
+  <div id="menu-bar-wrapper">
+    <nav class="main-menu">
+      <a href="#forfaits-content" class="menu-link active">Forfaits</a>
+      <a href="#info-content" class="menu-link">Información</a>
+      <a href="#esqui-content" class="menu-link">Esquí</a>
+      <a href="#snow-content" class="menu-link">Snow</a>
+      <a href="#alquiler-content" class="menu-link">Alquiler</a>
+    </nav>
+  </div>
 
-    <main>
-      <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <mask id="m">
-          <g class="cloud1">
-            <rect fill="#fff" width="100%" height="801" y="799" />
-            <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800"/>
-          </g>
-        </mask>
-        <image class="sky"     xlink:href="https://assets.codepen.io/721952/sky.jpg"    width="1200" height="590" />
-        <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200" height="800"/>
-        <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200" height="800"/>
-        <image class="cloud2"  xlink:href="https://assets.codepen.io/721952/cloud2.png"  width="1200" height="800"/>
-        <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200" height="800"/>
-        <image class="cloud1"  xlink:href="https://assets.codepen.io/721952/cloud1.png"  width="1200" height="800"/>
-        <image class="cloud3"  xlink:href="https://assets.codepen.io/721952/cloud3.png"  width="1200" height="800"/>
-        <text fill="#fff" x="600" y="200" text-anchor="middle">SNOWLINES</text>
-        <polyline class="arrow" fill="#fff"
-          points="599,250 599,289 590,279 590,282 600,292 610,282 610,279 601,289 601,250" />
-        <g mask="url(#m)">
-          <rect fill="#fff" width="100%" height="100%"/>
-          <text x="600" y="200" fill="#162a43" text-anchor="middle">SIERRA NEVADA</text>
-        </g>
-        <rect id="arrow-btn" width="100" height="100" opacity="0" x="550" y="220" style="cursor:pointer"/>
-      </svg>
-    </main>
+  <main id="main-content">
+
+    <div class="content-container">
+      
+      <section id="forfaits-content" class="info-section content-tab visible">
+        <h2>Forfaits</h2>
+        <p>
+          El forfait es tu pase personal para acceder a todas las pistas y remontes de la estación. 
+          Es imprescindible para poder esquiar o practicar snowboard. 
+          ¡Adquiere el tuyo online y evita colas!
+        </p>
+        <a href="https://tienda.sierranevada.es" class="btn-comprar" target="_blank" rel="noopener noreferrer">
+          Comprar Forfait Online
+        </a>
+      </section>
+
+      <section id="info-content" class="info-section content-tab">
+        <h2>Información General</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>🎿 Datos Generales</h3>
+            <p><strong>Altitud:</strong> 2.100m - 3.300m</p>
+            <p><strong>Pistas:</strong> 110 km esquiables</p>
+            <p><strong>Remontes:</strong> 24 telesillas y telesquís</p>
+          </div>
+          <div class="info-card">
+            <h3>⏰ Horarios Temporada</h3>
+            <p><strong>Apertura:</strong> Diciembre 2024</p>
+            <p><strong>Cierre:</strong> Abril 2025</p>
+            <p><strong>Horario pistas:</strong> 9:00 - 17:00h</p>
+          </div>
+          <div class="info-card">
+            <h3>🅿️ Aparcamientos</h3>
+            <p><strong>Pradollano:</strong> 2.500 plazas aprox.</p>
+            <p><strong>Recomendación:</strong> Llegar antes de las 9:00h</p>
+            <p><strong>Shuttle:</strong> Bus gratuito desde aparcamientos.</p>
+          </div>
+        </div>
+        <h2>Tarifas Forfait 2024-25</h2>
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Tipo de Forfait</th>
+              <th>Adulto</th>
+              <th>Junior (6-15 años)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 Día</td>
+              <td>55€</td>
+              <td>42€</td>
+            </tr>
+            <tr>
+              <td>6 Días</td>
+              <td>275€</td>
+              <td>210€</td>
+            </tr>
+            <tr>
+              <td>Temporada</td>
+              <td>799€</td>
+              <td>599€</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="esqui-content" class="info-section content-tab">
+        <h2>Escuelas de Esquí</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Clases Particulares</h3>
+            <p>Mejora tu técnica con un monitor dedicado. Para todos los niveles, desde debutante hasta experto.</p>
+          </div>
+          <div class="info-card">
+            <h3>Cursos en Grupo</h3>
+            <p>Aprende en un ambiente divertido. Grupos reducidos separados por nivel y edad.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="snow-content" class="info-section content-tab">
+        <h2>Snowboard y Freestyle</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Snowpark Sulayr</h3>
+            <p>El paraíso del freestyle. Módulos, saltos y half-pipe para todos los niveles de riders.</p>
+          </div>
+          <div class="info-card">
+            <h3>Clases de Snow</h3>
+            <p>Iníciate en el snowboard o perfecciona tus trucos con nuestros instructores certificados.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="alquiler-content" class="info-section content-tab">
+        <h2>Alquiler de Material</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Equipo Completo Esquí</h3>
+            <p>Incluye esquís, botas y bastones. Material de gama alta y estándar disponible.</p>
+          </div>
+          <div class="info-card">
+            <h3>Equipo Completo Snow</h3>
+            <p>Incluye tabla y botas. Equipos para todos los estilos: all-mountain, freestyle y freeride.</p>
+          </div>
+          <div class="info-card">
+            <h3>Solo Material</h3>
+            <p>Alquila solo botas, tabla, esquís o casco. Preparamos tu material para que esté listo a tu llegada.</p>
+          </div>
+        </div>
+      </section>
+      
+    </div> 
+    
+    <section class="gallery-section">
+      <h2>Nuestra Galería</h2>
+      <div class="carousel-container">
+        <div class="carousel-slide fade">
+          <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&auto=format&fit=crop&q=80" alt="Pistas de Sierra Nevada">
+          <div class="carousel-caption"><h3>Pistas Nevadas y Vistas Espectaculares</h3></div>
+        </div>
+        <div class="carousel-slide fade">
+          <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=1200&auto=format&fit=crop&q=80" alt="Esquiador en acción en Sierra Nevada">
+          <div class="carousel-caption"><h3>Adrenalina en la Nieve</h3></div>
+        </div>
+        <div class="carousel-slide fade">
+          <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1200&auto=format&fit=crop&q=80" alt="Telecabina con vistas a la montaña">
+          <div class="carousel-caption"><h3>Subiendo a la Cima</h3></div>
+        </div>
+        <div class="carousel-slide fade">
+            <img src="https://images.unsplash.com/photo-1549476466-98ec9a518341?w=1200&auto=format&fit=crop&q=80" alt="Vista aérea de la estación de esquí">
+            <div class="carousel-caption"><h3>La Inmensidad de Sierra Nevada</h3></div>
+        </div>
+        <div class="carousel-slide fade">
+            <img src="https://images.unsplash.com/photo-1627964177694-82a15c324c43?q=80&w=1200&auto=format&fit=crop" alt="Grupo de amigos esquiando">
+            <div class="carousel-caption"><h3>Disfruta con Amigos y Familia</h3></div>
+        </div>
+    
+
+        <a class="prev" aria-label="Anterior">&#10094;</a>
+        <a class="next" aria-label="Siguiente">&#10095;</a>
+
+        <div style="text-align:center; margin-top: 20px;">
+          <span class="dot active" aria-label="Ir a la diapositiva 1"></span>
+          <span class="dot" aria-label="Ir a la diapositiva 2"></span>
+          <span class="dot" aria-label="Ir a la diapositiva 3"></span>
+          <span class="dot" aria-label="Ir a la diapositiva 4"></span>
+          <span class="dot" aria-label="Ir a la diapositiva 5"></span>
+        </div>
+      </div>
+    </section>
 
     <section id="map-section">
+      <h2>Mapa Interactivo</h2>
       <div id="map-wrapper">
-        <img src="Gemini_Generated_Image_7pn6pj7pn6pj7pn6.png" alt="Mapa de pistas de Sierra Nevada" />
+        <img src="Gemini_Generated_Image_7pn6pj7pn6pj7pn6.png" alt="Mapa de pistas de Sierra Nevada">
+        
+        <button class="map-point" 
+            style="top: 90%; left: 26%;"
+            data-title="Punto de encuentro"
+            data-description="Aquí nos reuniremos antes de comenzar la clase.<br><br><a href='https://share.google/bis23CChISdAAlEdj' target='_blank' style='color:#007bff; text-decoration:underline;'>Abrir en Mapas</a>📍">    
+    </button>
+    <button class="map-point" 
+            style="top: 70%; left: 47%;"
+            data-title="Pistas Verdes"
+            data-description="Las 19 pistas verdes son ideales para aquellos que están dando sus primeros pasos en la nieve. Diseñadas para proporcionar una experiencia de aprendizaje segura y cómoda."></button>
 
-        <!-- (corregido: este botón no tenía cierre) -->
-        <button class="map-point"
-                style="top: 90%; left: 26%;"
-                data-title="Punto de encuentro"
-                data-description="Aquí nos reuniremos antes de comenzar la clase.<br><br><a href='https://share.google/bis23CChISdAAlEdj' target='_blank' style='color:#007bff; text-decoration:underline;'>Abrir en Mapas</a>📍">
-        </button>
-
-        <button class="map-point"
-                style="top: 70%; left: 47%;"
-                data-title="Pistas Verdes"
-                data-description="Las 19 pistas verdes son ideales para aquellos que están dando sus primeros pasos en la nieve. Diseñadas para proporcionar una experiencia de aprendizaje segura y cómoda.">
-        </button>
-
-        <button class="map-point"
-                style="top: 48%; left: 75%;"
-                data-title="Pistas Azules"
-                data-description="Terreno fácil y perfecto para esquiadores y snowboarders que ya dominan los fundamentos. Estas pistas presentan una pendiente moderada y un trazado predecible.">
-        </button>
-
+    <button class="map-point" 
+            style="top: 48%; left: 75%;"
+            data-title="Pistas Azules"
+            data-description="Terreno fácil y perfecto para esquiadores y snowboarders que ya dominan los fundamentos. Estas pistas presentan una pendiente moderada y un trazado predecible."></button>
+        
+        <button class="map-point" style="top: 70%; left: 35%;" 
+                data-title="Pradollano"
+                data-description="Zona urbana principal. Alojamientos, restaurantes y comercios."></button>
+        
+        <button class="map-point" style="top: 40%; left: 70%;" 
+                data-title="Sulayr Snowpark"
+                data-description="Snowpark con módulos para todos los niveles."></button>
+        
         <div id="map-popup"></div>
       </div>
     </section>
-  </div>
-  <!-- ⬆️ Fin encapsulado -->
+  
+  </main>
+  
+  <script src="script.js"></script>
 
-  <!-- Footer (inyectado al final) -->
-  <div id="footer"></div>
-
-  <!-- GSAP y lógica del subdominio -->
-  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollToPlugin.min.js"></script>
-  <script src="./script.js"></script>
-
-  <!-- Inyección de navbar/footer + comportamiento sticky del nav -->
-  <script>
-    (function(){
-      function fixPaths(html){
-        // Ajustar rutas relativas desde /dist a /assets en los parciales
-        html = html.replace(/src="assets\//g, 'src="../assets/');
-        html = html.replace(/href="assets\//g, 'href="../assets/');
-        html = html.replace(/'assets\//g, "'../assets/");
-        return html;
-      }
-      function wireMenu(){
-        var btn  = document.getElementById('menu-btn');
-        var list = document.getElementById('navlist');
-        var bar  = document.querySelector('.topbar');
-        if(bar){
-          var setOffset = function(){
-            var h = bar.offsetHeight || 72;
-            document.documentElement.style.setProperty('--nav-h', h + 'px');
-          };
-          var onScroll = function(){
-            bar.classList.toggle('scrolled', window.scrollY > 10);
-          };
-          setOffset(); onScroll();
-          window.addEventListener('resize', setOffset);
-          window.addEventListener('scroll', onScroll, {passive:true});
-        }
-        if(btn && list){
-          btn.addEventListener('click', function(){
-            var open = list.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          });
-        }
-      }
-      function inject(id, url){
-        var slot = document.getElementById(id);
-        if(!slot) return Promise.resolve();
-        return fetch(url).then(function(r){return r.text()}).then(function(html){
-          slot.innerHTML = fixPaths(html);
-          if(id === 'navbar') wireMenu();
-        });
-      }
-      inject('navbar', '../partials/navbar.html');
-      inject('footer', '../partials/footer.html');
-    })();
-  </script>
 </body>
 </html>
